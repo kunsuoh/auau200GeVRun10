@@ -16,8 +16,7 @@
 class TTree;
 class TFile;
 class StPicoDstMaker;
-class StPicoEvent;
-class StPicoTrack;
+class StElectronPair;
 class StPicoNpeHists;
 
 class StLowPtNpeAnaMaker : public StMaker

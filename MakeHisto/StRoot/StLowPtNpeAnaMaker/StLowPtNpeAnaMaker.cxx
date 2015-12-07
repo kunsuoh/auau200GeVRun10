@@ -11,8 +11,9 @@
 #include "../StPicoDstMaker/StPicoEvent.h"
 #include "../StPicoDstMaker/StPicoTrack.h"
 #include "../StPicoDstMaker/StPicoBTofPidTraits.h"
+
 #include "StLowPtNpeAnaMaker.h"
-#include "StPicoNpeHists.h"
+#include "StElectronPair.h"
 #include "StCuts.h"
 
 ClassImp(StLowPtNpeAnaMaker)
@@ -120,7 +121,7 @@ Int_t StLowPtNpeAnaMaker::Make()
                 
                 if(electron->charge() * partner->charge() <0) // fill histograms for unlike sign pairs only
                 {
-
+                    
                 }
                 
             } // .. end make electron pairs
@@ -130,7 +131,7 @@ Int_t StLowPtNpeAnaMaker::Make()
         idxPicoPartnerEs.clear();
     } //.. end of good event fill
     
-
+    
     return kStOK;
 }
 
