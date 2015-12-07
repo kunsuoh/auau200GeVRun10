@@ -9,6 +9,7 @@
 #include "phys_constants.h"
 #include "SystemOfUnits.h"
 #include "StPicoDstMaker/StPicoTrack.h"
+#include "TVector3.h"
 
 #include "StElectronPair.h"
 
