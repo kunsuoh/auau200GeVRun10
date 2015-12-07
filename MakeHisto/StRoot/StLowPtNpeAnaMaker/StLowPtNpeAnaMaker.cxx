@@ -25,7 +25,7 @@ mOutputFile(NULL)
 {
     
     TString baseName(fileBaseName);
-    mOutputFile = new TFile(Form("%s.picoNpe.root",fileBaseName), "RECREATE");
+    mOutputFile = new TFile(Form("%s.hist.root",fileBaseName), "RECREATE");
 }
 
 //-----------------------------------------------------------------------------

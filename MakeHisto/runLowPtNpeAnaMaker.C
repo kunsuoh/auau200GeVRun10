@@ -16,7 +16,7 @@ class StPicoDstMaker;
 
 StChain * npeChain;
 
-void runLowPtNpeAnaMaker(TString npeList, TString outFileName)
+void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test")
 {
     string SL_version = "SL15c";
     string env_SL = getenv("STAR");
