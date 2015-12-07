@@ -19,60 +19,33 @@ StPicoCut::~StPicoCut() {}
 bool StPicoCut::passEvent( StMuEvent *ev )
 {
   if(!ev){
-    LOG_INFO << "StPicoCut::passEvent  No StMuEvent" << endm;
+//    LOG_INFO << "StPicoCut::passEvent  No StMuEvent" << endm;
     return kFALSE;
   }
-//  StThreeVectorF pVertex = ev->eventSummary().primaryVertexPosition();
-  StThreeVectorF pVertex = ev->primaryVertexPosition();
+  StThreeVectorF pVertex = ev->eventSummary().primaryVertexPosition();
   if(fabs(pVertex.x())<1.e-5 && fabs(pVertex.y())<1.e-5 && fabs(pVertex.z())<1.e-5){
-   LOG_INFO << "StPicoCut::passEvent  bad vertices (x,y,z) = ("
-            << pVertex.x() << ","
-            << pVertex.y() << ","
-            << pVertex.z() << ")"
-            << endm;
+//   LOG_INFO << "StPicoCut::passEvent  bad vertices (x,y,z) = ("
+//            << pVertex.x() << ","
+//            << pVertex.y() << ","
+//            << pVertex.z() << ")"
+//            << endm;
     return kFALSE;
   }
   if(fabs(pVertex.z())>Pico::mVzMax){
-    LOG_INFO << "StPicoCut::passEvent  z-vertex out of range, vz  (evtSum)=" << pVertex.z() << " (direct)=" << ev->primaryVertexPosition().z() << endm;
+//    LOG_INFO << "StPicoCut::passEvent  z-vertex out of range, vz = " << pVertex.z() << endm;
     return kFALSE;
-  }
-
-  const Float_t vx = pVertex.x() ;
-  const Float_t vy = pVertex.y() ;
-  if(sqrt(vx*vx+vy*vy)>Pico::mVrMax){
-    LOG_INFO << "StPicoCut::passEvent  vr-vertex out of range, vr = " << sqrt(vx*vx+vy*vy)
-      << ",  vx = " << vx
-      << ",  vy = " << vy
-      << endm;
-    return kFALSE ;
   }
 
   bool isTrg = kFALSE;
   for(int i=0;i<nTrigger;i++) {
     if(ev->triggerIdCollection().nominal().isTrigger(Pico::mTriggerId[i])){
+//      LOG_INFO << "StPicoCut::passEvent  Fire trigger = " << Pico::mTriggerId[i] << endm;
       isTrg = kTRUE;
-      break;
     }
   }
+  if(!isTrg) return kFALSE;
 
-  if(!isTrg){
-    for(int i=0;i<nTriggerMtd;i++) {
-      if(ev->triggerIdCollection().nominal().isTrigger(Pico::mTriggerIdMtd[i])){
-	isTrg = kTRUE;
-	break;
-      }
-    }
-  }
-
-  if(!isTrg) {
-    LOG_INFO << "StPicoCut::passEvent trigger not fired " << endm;
-    return kFALSE;
-  }
-
-  if(ev->refMult()<Pico::mRefMultMin) {
-    LOG_INFO << "StPicoCut::passEvent refMult out of range, refMult = " << ev->refMult() << endm;
-    return kFALSE;
-  }
+  if(ev->refMult()<Pico::mRefMultMin) return kFALSE;
 
   return kTRUE;
 }
@@ -86,7 +59,6 @@ bool StPicoCut::passTrack( StMuTrack *t )
     return kFALSE;
   }
   if(t->p().perp()<Pico::mPtMin) return kFALSE;
-  if(t->dcaGlobal().mag()>Pico::mGDcaMax) return kFALSE;
   if(t->flag()/100<7) {  // TPC tracks
     if( t->nHitsFit(kTpcId) < Pico::mNHitsFitMin ) return kFALSE;
     if( (1.0*t->nHitsFit(kTpcId))/(1.0*t->nHitsPoss(kTpcId)) < Pico::mRatioMin ) return kFALSE;
@@ -108,7 +80,7 @@ bool StPicoCut::passTrack( StMuTrack *t )
 
   return kTRUE;
 }
-/*
+
 //----------------------------------------------------------------------------------
 bool StPicoCut::passV0Daughter( StPicoTrack *t )
 {
@@ -262,4 +234,3 @@ int StPicoCut::flowFlag( StMuTrack *p )
 
   return others;
 }
-*/

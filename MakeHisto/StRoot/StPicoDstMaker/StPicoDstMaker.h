@@ -12,14 +12,10 @@ class StBTofHeader;
 class StEmcCollection;
 class StEmcPosition;
 class StEmcGeom;
-class StBemcTables;
 class StPicoDst;
 class StPicoEvent;
 class StPicoTrack;
 class StPicoV0;
-class StPicoEmcTrigger;
-class StPicoBTOWHit;
-class StPicoBTofHit;
 class StPicoCut;
 
 #include "StPicoConstants.h"
@@ -50,7 +46,6 @@ class StPicoDstMaker : public StMaker {
    void setRunNumber(Int_t);              
    void setCreatingPhiWgt(Bool_t);
    void setProdMode(Int_t);
-   void setEmcMode(const Int_t mode=1); // 0:No EMC, 1:EMC On
    /// Returns null pointer if no StPicoDst
    StPicoDst *picoDst();
    /// In read mode, returns pointer to the chain of .picoDst.root files
@@ -83,8 +78,6 @@ class StPicoDstMaker : public StMaker {
    void buildEmcIndex();
    void initEmc();
    void finishEmc();
-
-   Bool_t initMtd();
    
    void DeclareHistos();
    void WriteHistos();
@@ -101,12 +94,7 @@ class StPicoDstMaker : public StMaker {
 
    void fillTracks();
    void fillEvent();
-//   void fillV0();
-   void fillEmcTrigger();
-   void fillMtdTrigger();
-   void fillBTOWHits();
-   void fillBTofHits();
-   void fillMtdHits();
+   void fillV0();
 
    Int_t phiBin(int, StMuTrack *, float);
    void  addPhiWeight(StMuTrack *, float, float*);
@@ -129,10 +117,9 @@ class StPicoDstMaker : public StMaker {
    Int_t      mCentrality;
    Float_t    mBField;
 
-   Int_t      mIoMode;         //! I/O mode:  0: - read,   1: - write
+   Int_t      mIoMode;         //! I/O mode:  0: - write,   1: - read
    Bool_t     mCreatingPhiWgt; //! creating phi weight files
-   Int_t      mProdMode;       //! prod mode: 0: - mb, 1: - central, 2: - ht, 3: - mb2, mb with phi weight and q-vector calculation, 4: - save only electron or muon candidates
-   Int_t      mEmcMode;        //! EMC ON(=1)/OFF(=0)
+   Int_t      mProdMode;       //! prod mode: 0: - mb, 1: - central, 2: - ht, 3: - mb2, mb with phi weight and q-vector calculation
 
    TString   mInputFileName;        //! *.list - MuDst or picoDst
    TString   mOutputFileName;       //! FileName
@@ -158,10 +145,6 @@ class StPicoDstMaker : public StMaker {
    static const char* mEW[nEW*nDet]; //!={"EE","EW","WE","WW","FarWest","West","East","FarEast"};
    Float_t mPhiWeightRead[nCen+1][nEW*nDet*nPhi];
    Float_t mPhiWeightWrite[nEW*nDet*nPhi];  // phi weight for the current event
-
-   // MTD map from backleg to QT
-  Int_t  mModuleToQT[30][5];     // Map from module to QT board index
-  Int_t  mModuleToQTPos[30][5];  // Map from module to the position on QA board
          
    //
    friend class StPicoDst;
@@ -183,5 +166,4 @@ inline void StPicoDstMaker::setBufferSize(int buf) { mBufferSize = buf; }
 inline void StPicoDstMaker::setRunNumber(int run) { mRunNumber = run; }
 inline void StPicoDstMaker::setCreatingPhiWgt(bool val) { mCreatingPhiWgt = val; }
 inline void StPicoDstMaker::setProdMode(int val) { mProdMode = val; }
-inline void StPicoDstMaker::setEmcMode(const Int_t mode) { mEmcMode = mode; }
 #endif
