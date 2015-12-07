@@ -159,16 +159,13 @@ bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
 bool StLowPtNpeAnaMaker::isPartnerElectron(StPicoTrack const * const trk) const
 {
     return
-    fabs(trk->nSigmaElectron()) < cuts::nSigmaPartnerElectron;
+    fabs(trk->nSigmaElectron()) < cuts::nSigmaElectron;
 }
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodElectronPair(StElectronPair const & epair, float pt) const
 {
     return
     epair.pairMass() < cuts::pairMass &&
-    epair.pairDca() < cuts::pairDca &&
-    fabs(epair.positionX()) < cuts::positionX &&
-    fabs(epair.positionY()) < cuts::positionY &&
-    fabs(epair.positionZ()) < cuts::positionZ;
+    epair.pairDca() < cuts::pairDca;
 }
 //-----------------------------------------------------------------------------
