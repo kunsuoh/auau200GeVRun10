@@ -148,8 +148,8 @@ bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
     trk->gMom().pseudoRapidity() < cuts::etaTagged &&
     trk->nHitsDedx() >= cuts::nHitsDedx &&
     trk->dca() < cuts::globalDca &&
-    !(trk->gMom().phi() > cuts::phiMin1 && trk->gMom().phi < cuts::phiMax1) &&
-    !(trk->gMom().phi() > cuts::phiMin2 && trk->gMom().phi < cuts::phiMax2) ;
+    trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi > cuts::phiMax1 &&
+    trk->gMom().phi() < cuts::phiMin2 && trk->gMom().phi > cuts::phiMax2 ;
 }
 
 //-----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ bool StLowPtNpeAnaMaker::isGoodElectronPair(StElectronPair const & epair, float 
     epair.pairDca() < cuts::pairDca;
 }
 //-----------------------------------------------------------------------------
-void  fillHistogram(StPicoTrack const * const trk) const
+void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 {
-    
+    return 0;
 }
