@@ -59,9 +59,6 @@ void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test
     
     npeChain->Finish();
     delete npeChain;
-    
-    // delete list of picos
-    command = "rm -f correspondingPico.list";
-    gSystem->Exec(command.Data());
+
     
 }

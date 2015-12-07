@@ -265,8 +265,12 @@ Int_t StPicoDstMaker::openRead() {
       }
     }
     LOG_INFO << " Total " << nFile << " files have been read in. " << endm;
-  } else if (dirFile.find(".picoDst.root")!=string::npos)  {
-    mChain->Add(dirFile.c_str());
+  }
+    else if (dirFile.find(".picoDst.root")!=string::npos)  {
+        
+        TList *filelist = TFileInfo::CreateList(dirFile.c_str());
+        mChain.AddFileInfoList(filelist);
+    //mChain->Add(dirFile.c_str());
   } else {
     LOG_WARN << " No good input file to read ... " << endm;
   }
