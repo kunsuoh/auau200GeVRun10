@@ -4,7 +4,6 @@
  *  Cuts namespace.
  *
  *  Authors:  **Kunsu OH        (kunsuoh@gmail.com)
- *              Mustafa Mustafa (mmustafa@lbl.gov)
  *
  *  **Code Maintainer
  *
@@ -16,39 +15,35 @@
 
 namespace cuts
 {
-    // path to lists of triggers prescales
-    // lists are obtained from http://www.star.bnl.gov/protected/common/common2014/trigger2014/plots_au200gev/
-    std::string const prescalesFilesDirectoryName = "./run14AuAu200GeVPrescales";
 
     //event
-    float const vz = 6.0;// cm.
-    float const vzVpdVz = 3.0; // 3 cm.
+    float const vz = 30.0;
+    float const vzVpdVz = 3.0;
     
-    //tracking
-    int const nHitsFit = 15;
+    // track
+    int const nHitsFit = 20;
+    float const nHitsRatioMin = 0.52; float const nHitsRatioMax = 1.2;
     float const pt = .2;
-    
-    // electrons
-    bool const requireHFT = true;
     float const nSigmaElectron = 3.;
     
+    // electrons
+    int const nHitDedx = 15;
+    float const globalDca = 1.;
+    float const etaTagged = 0.5;
+    float const firstHit = 73.;
+    float const phiMin1 = 0; float const phiMax1 = 0;
+    float const phiMin2 = 0; float const phiMax2 = 0;
+
+    float const ylocal = 1.9;
+    float const zlocal = 3.2;
+    float const beta = 0.025;
+    
     // partner
-    float const nSigmaPartnerElectron = 3.;
+    float const etaPartner = 0.7;
     
-    // tree electron pair cuts
-    float const pairMass = 0.2;
-    float const pairMassHigh = 0.4;
-    float const pairHighPt = 2.;
-    float const pairDca = 1;
-    float const positionX = 200.;
-    float const positionY = 200.;
-    float const positionZ = 200.;
+    // electron pair cuts
+    float const pairMass = 0.5;
+    float const pairDca = 3.;
     
-    // histograms electron pair cuts
-    float const qaNHitsFit = 20;
-    float const qaNSigmaElectronMax = 3.0;
-    float const qaNSigmaElectronMin = -1.0;
-    float const qaPairDca = 0.1;
-    float const qaPairMass = 0.1;
 }
 #endif

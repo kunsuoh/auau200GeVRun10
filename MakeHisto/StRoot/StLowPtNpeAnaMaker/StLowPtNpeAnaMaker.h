@@ -1,12 +1,11 @@
-#ifndef StPicoNpeEventMaker_h
-#define StPicoNpeEventMaker_h
+#ifndef StLowPtNpeAnaMaker_h
+#define StLowPtNpeAnaMaker_h
 
 /* **************************************************
- *  A Maker that reads StPicoEvents' and creates
- *  StPicoNpeEvents and stores them.
+ *  A Maker that reads StPicoEvents and creates
+ *  StLowPtNpeAnas and stores them.
  *
  *  Authors:  **Kunsu OH        (kunsuoh@gmail.com)
- *            Mustafa Mustafa (mmustafa@lbl.gov)
  *
  *  **Code Maintainer
  * **************************************************
@@ -19,14 +18,13 @@ class TFile;
 class StPicoDstMaker;
 class StPicoEvent;
 class StPicoTrack;
-class StPicoNpeEvent;
 class StPicoNpeHists;
 
-class StPicoNpeEventMaker : public StMaker
+class StLowPtNpeAnaMaker : public StMaker
 {
 public:
-    StPicoNpeEventMaker(char const* makerName, StPicoDstMaker* picoMaker, char const* fileBaseName);
-    virtual ~StPicoNpeEventMaker();
+    StLowPtNpeAnaMaker(char const* makerName, StPicoDstMaker* picoMaker, char const* fileBaseName);
+    virtual ~StLowPtNpeAnaMaker();
     
     virtual Int_t Init();
     virtual Int_t Make();
@@ -47,9 +45,8 @@ private:
     
     TFile* mOutputFile;
     TTree* mTree;
-    StPicoNpeEvent* mPicoNpeEvent;
     
-    ClassDef(StPicoNpeEventMaker, 0)
+    ClassDef(StLowPtNpeAnaMaker, 0)
 };
 
 #endif
