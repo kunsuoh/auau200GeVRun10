@@ -41,6 +41,7 @@ private:
     bool  isTpcPid(StPicoTrack const *, float) const;
 
     bool  isGoodElectronPair(StElectronPair const &, float) const;
+    void  fillHistogram(StPicoTrack const*) const;
     
     StPicoDstMaker* mPicoDstMaker;
     StPicoEvent*    mPicoEvent;

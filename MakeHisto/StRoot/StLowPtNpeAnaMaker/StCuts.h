@@ -24,10 +24,11 @@ namespace cuts
     int const nHitsFit = 20;
     float const nHitsRatioMin = 0.52; float const nHitsRatioMax = 1.2;
     float const pt = .2;
-    float const nSigmaElectron = 3.;
+    float const nSigmaTaggedElectron = 3.;
+    float const nSigmaPartnerElectron = 3.;
     
     // electrons
-    int const nHitDedx = 15;
+    int const nHitsDedx = 15;
     float const globalDca = 1.;
     float const etaTagged = 0.5;
     float const firstHit = 73.;
