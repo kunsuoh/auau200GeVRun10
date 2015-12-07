@@ -10,7 +10,6 @@
 #include "../StPicoDstMaker/StPicoDstMaker.h"
 #include "../StPicoDstMaker/StPicoEvent.h"
 #include "../StPicoDstMaker/StPicoTrack.h"
-#include "../StPicoDstMaker/StPicoBTofPidTraits.h"
 
 #include "StLowPtNpeAnaMaker.h"
 #include "StElectronPair.h"
