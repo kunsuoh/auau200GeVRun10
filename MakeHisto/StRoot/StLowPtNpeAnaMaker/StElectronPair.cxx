@@ -53,16 +53,8 @@ mPositionZ(std::numeric_limits<float>::quiet_NaN())
         return;
     }
     
-    TVector3 gmom(electron->Tracks_mGMomentum_mX1[j],electron->Tracks_mGMomentum_mX2[j],electron->Tracks_mGMomentum_mX3[j]);
-    TVector3 HelixP(gmom.Px(), gmom.Py(), gmom.Pz());
-    TVector3 HelixO(0.01*electron->Tracks_mOriginX[j], 0.01*electron->Tracks_mOriginY[j], 0.01*electron->Tracks_mOriginZ[j]);
-    
-    TVector3 gmom(partner->Tracks_mGMomentum_mX1[j],partner->Tracks_mGMomentum_mX2[j],partner->Tracks_mGMomentum_mX3[j]);
-    TVector3 HelixP(gmom.Px(), gmom.Py(), gmom.Pz());
-    TVector3 HelixO(0.01*partner->Tracks_mOriginX[j], 0.01*partner->Tracks_mOriginY[j], 0.01*partner->Tracks_mOriginZ[j]);
-    
-    StPhysicalHelixD electronHelix(HelixP,HelixO,bField,(1*electron->Tracks_mNHitsFit[j]>0) ? 1 : -1);
-    StPhysicalHelixD partnerHelix(HelixP,HelixO,bField,(1*partner->Tracks_mNHitsFit[j]>0) ? 1 : -1);
+    StPhysicalHelixD electronHelix(electron.gmom(),electron.origin(),bField,(1*electron->Tracks_mNHitsFit[j]>0) ? 1 : -1);
+    StPhysicalHelixD partnerHelix(partner.gmom(),partner.origin(),bField,(1*partner->Tracks_mNHitsFit[j]>0) ? 1 : -1);
     
     // normal method
     pair<double,double> ss = electronHelix.pathLengths(partnerHelix);
