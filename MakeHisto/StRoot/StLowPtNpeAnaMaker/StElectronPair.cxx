@@ -53,8 +53,8 @@ mPositionZ(std::numeric_limits<float>::quiet_NaN())
         return;
     }
     
-    StPhysicalHelixD electronHelix(electron->gMom(),electron->origin(),bField,(1*electron->Tracks_mNHitsFit[j]>0) ? 1 : -1);
-    StPhysicalHelixD partnerHelix(partner->gMom(),partner->origin(),bField,(1*partner->Tracks_mNHitsFit[j]>0) ? 1 : -1);
+    StPhysicalHelixD electronHelix(electron->gMom(),electron->origin(),bField,electron->nHitsFit());
+    StPhysicalHelixD partnerHelix(partner->gMom(),partner->origin(),bField,partner->nHitsFit();
     
     // normal method
     pair<double,double> ss = electronHelix.pathLengths(partnerHelix);
