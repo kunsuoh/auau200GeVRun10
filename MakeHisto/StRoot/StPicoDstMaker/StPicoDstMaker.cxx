@@ -23,6 +23,7 @@
 #include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
 #include "StMuDSTMaker/COMMON/StMuBTofPidTraits.h"
 #include "StBTofHeader.h"
+#include "TFileInfo.h"
 
 #include "StMuDSTMaker/COMMON/StMuEmcCollection.h"
 #include "StMuDSTMaker/COMMON/StMuEmcPoint.h"
