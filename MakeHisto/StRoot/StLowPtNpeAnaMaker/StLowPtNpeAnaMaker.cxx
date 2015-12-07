@@ -80,18 +80,14 @@ Int_t StLowPtNpeAnaMaker::Make()
         std::vector<unsigned short> idxPicoTaggedEs;
         std::vector<unsigned short> idxPicoPartnerEs;
         
-        unsigned int nHftTracks = 0;
-        
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
             StPicoTrack const* trk = picoDst->track(iTrack);
-            
             if (!trk || !isGoodTrack(trk)) continue;
-            ++nHftTracks;
-            
             if (isElectron(trk))
             {
-                idxPicoTaggedEs.push_back(iTrack);
+                fillHistogram(trk);
+                if (isTaggedElectron) idxPicoTaggedEs.push_back(iTrack);
             }
             
             if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);
@@ -117,12 +113,6 @@ Int_t StLowPtNpeAnaMaker::Make()
                 
                 if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
                 
-                
-                if(electron->charge() * partner->charge() <0) // fill histograms for unlike sign pairs only
-                {
-                    
-                }
-                
             } // .. end make electron pairs
         } // .. end of tagged e loop
         
@@ -145,20 +135,60 @@ bool StLowPtNpeAnaMaker::isGoodEvent() const
 bool StLowPtNpeAnaMaker::isGoodTrack(StPicoTrack const * const trk) const
 {
     return trk->gMom().perp() > cuts::pt &&
-    trk->nHitsFit() >= cuts::nHitsFit;
+    trk->nHitsFit() >= cuts::nHitsFit &&
+    (float)trk->nHitsFit()/(float)trk->nHitsMax() > cuts::nHitsRatioMin &&
+    (float)trk->nHitsFit()/(float)trk->nHitsMax() < cuts::nHitsRatioMax ;
 }
 
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
 {
     return
-    fabs(trk->nSigmaElectron()) < cuts::nSigmaElectron;
+    isGoodTrack(trk) &&
+    trk->gMom().pseudoRapidity() < cuts::etaTagged &&
+    trk->nHitsDedx() >= cuts::nHitsDedx &&
+    trk->dca() < cuts::globalDca &&
+    !(trk->gMom().phi() > phiMin1 && trk->gMom().phi < phiMax1) &&
+    !(trk->gMom().phi() > phiMin2 && trk->gMom().phi < phiMax2) ;
 }
+
+//-----------------------------------------------------------------------------
+bool StLowPtNpeAnaMaker::isTaggedElectron(StPicoTrack const * const trk) const
+{
+    return
+    isElectron(trk) &&
+    isTpcPid(trk, cuts::nSigmaTaggedElectron) &&
+    isTofMatching(trk, cuts::ylocal, cuts::zlocal) &&
+    isTofPid(trk, cuts::beta) ;
+}
+
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isPartnerElectron(StPicoTrack const * const trk) const
 {
     return
-    fabs(trk->nSigmaElectron()) < cuts::nSigmaElectron;
+    isGoodTrack(trk) &&
+    trk->gMom().pseudoRapidity() < cuts::etaPartner &&
+    isTpcPid(trk, cuts::nSigmaPartnerElectron) ;
+}
+
+//-----------------------------------------------------------------------------
+bool StLowPtNpeAnaMaker::isTofMatching(StPicoTrack const * const trk, float cutY, float cutZ) const
+{
+    return
+    fabs(trk->btofYLocal()) < cutY &&
+    fabs(trk->btofZLocal()) < cutZ ;
+}
+//-----------------------------------------------------------------------------
+bool StLowPtNpeAnaMaker::isTofPid(StPicoTrack const * const trk, float cut) const
+{
+    return
+    fabs(1-1/trk->btofBeta()) < cut ;
+}
+//-----------------------------------------------------------------------------
+bool StLowPtNpeAnaMaker::isTpcPid(StPicoTrack const * const trk, float cut) const
+{
+    return
+    fabs(trk->nSigmaElectron()) < cut;
 }
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodElectronPair(StElectronPair const & epair, float pt) const

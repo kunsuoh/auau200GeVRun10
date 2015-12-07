@@ -34,9 +34,13 @@ private:
     bool  isGoodEvent() const;
     bool  isGoodTrack(StPicoTrack const*) const;
     bool  isElectron(StPicoTrack const*) const;
+    bool  isTaggedElectron(StPicoTrack const*) const;
     bool  isPartnerElectron(StPicoTrack const*) const;
+    bool  isTofMatching(StPicoTrack const * const trk, float cutY, float cutZ) const;
+    bool  isTofPid(StPicoTrack const *, float) const;
+    bool  isTpcPid(StPicoTrack const *, float) const;
+
     bool  isGoodElectronPair(StElectronPair const &, float) const;
-    bool  isGoodQaElectronPair(StElectronPair const&, StPicoTrack const&,StPicoTrack const&) const;
     
     StPicoDstMaker* mPicoDstMaker;
     StPicoEvent*    mPicoEvent;
