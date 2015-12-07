@@ -115,7 +115,7 @@ Int_t StLowPtNpeAnaMaker::Make()
                 
                 StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
                 
-                if (!isGoodElectronPair(electronPair, electron->gPt())) continue;
+                if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
                 
                 
                 if(electron->charge() * partner->charge() <0) // fill histograms for unlike sign pairs only
@@ -144,7 +144,7 @@ bool StLowPtNpeAnaMaker::isGoodEvent() const
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodTrack(StPicoTrack const * const trk) const
 {
-    return trk->gPt() > cuts::pt &&
+    return trk->gMom().perp() > cuts::pt &&
     trk->nHitsFit() >= cuts::nHitsFit;
 }
 
