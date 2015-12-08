@@ -38,7 +38,6 @@ void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test
     
     StPicoDstMaker* picoDstMaker = new StPicoDstMaker(0,npeList,"picoDstMaker");
     StLowPtNpeAnaMaker*  LowPtNpeAnaMaker = new StLowPtNpeAnaMaker("LowPtNpeAnaMaker", picoDstMaker, outFileName.Data());
-    
     // -------------- USER variables -------------------------
     
     // add your cuts here.
@@ -49,6 +48,8 @@ void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test
     {
         if(iEvent%1==0) cout << "Working on eventNumber " << iEvent << endl;
 
+        float runNumber = picoDstMaker->picoDst()->runId();
+        
         npeChain->Clear();
         int iret = npeChain->Make();
         if (iret)

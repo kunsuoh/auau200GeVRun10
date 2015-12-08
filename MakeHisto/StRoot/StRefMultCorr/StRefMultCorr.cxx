@@ -400,7 +400,7 @@ void StRefMultCorr::read()
     cout << "StRefMultCorr::read  cannot open " << inputFileName << endl;
     return;
   }
-  cout << "StRefMultCorr::read  Open " << inputFileName << endl;
+  // cout << "StRefMultCorr::read  Open " << inputFileName << endl;
 
 //  Int_t input_counter = 0;
   string line ;
@@ -453,22 +453,22 @@ void StRefMultCorr::read()
       mCentrality_bins[mNCentrality].push_back( 5000 );
       //cout << "Data line = " << input_counter << ", Start_runId = " << Start_runId[input_counter] << ", Stop_runId = " << Stop_runId[input_counter] << endl;
       const UInt_t id = mStart_runId.size()-1;
-      cout << "StRefMultCorr::read  Index = " << id << endl;
-      cout << "StRefMultCorr::read  Start_runId = " << mStart_runId[id] << ", Stop_runId = " << mStop_runId[id] << endl;
-      cout << "StRefMultCorr::read  Start_zvertex = " << mStart_zvertex[id] << ", Stop_zvertex = " << mStop_zvertex[id] << endl;
-      cout << "StRefMultCorr::read  Normalize_stop = " << mNormalize_stop[id] << endl;
+ //     cout << "StRefMultCorr::read  Index = " << id << endl;
+ //     cout << "StRefMultCorr::read  Start_runId = " << mStart_runId[id] << ", Stop_runId = " << mStop_runId[id] << endl;
+ //     cout << "StRefMultCorr::read  Start_zvertex = " << mStart_zvertex[id] << ", Stop_zvertex = " << mStop_zvertex[id] << endl;
+ //     cout << "StRefMultCorr::read  Normalize_stop = " << mNormalize_stop[id] << endl;
       for(Int_t i=0;i<mNCentrality;i++){
-        cout << Form("StRefMultCorr::read  Centrality %3d-%3d %%, refmult > %4d", 75-5*i, 80-5*i, mCentrality_bins[i][id]) << endl;
+ //       cout << Form("StRefMultCorr::read  Centrality %3d-%3d %%, refmult > %4d", 75-5*i, 80-5*i, mCentrality_bins[i][id]) << endl;
       }
 
       for(Int_t i=0;i<mNPar_z_vertex;i++) {
-          cout << "mPar_z_vertex[" << i << "] = " << mPar_z_vertex[i][id] <<  endl;
+ //         cout << "mPar_z_vertex[" << i << "] = " << mPar_z_vertex[i][id] <<  endl;
       }
       for(Int_t i=0;i<mNPar_weight;i++) {
-          cout << "mPar_weight[" << i << "] = " << mPar_weight[i][id] << endl;
+ //         cout << "mPar_weight[" << i << "] = " << mPar_weight[i][id] << endl;
       }
       for(Int_t i=0;i<mNPar_luminosity;i++) {
-          cout << "mPar_luminosity[" << i << "] = " << mPar_luminosity[i][id] << endl;
+ //         cout << "mPar_luminosity[" << i << "] = " << mPar_luminosity[i][id] << endl;
       }
       cout << endl;
     }
