@@ -238,6 +238,8 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     float pt = trk->gMom().perp();
     float eta = trk->gMom().pseudoRapidity();
     
+    cout << pt << " " << eta << endl;
+
     if (pt > 5.) return;
     if (eta > 0.5 || eta < -0.5) return;
 

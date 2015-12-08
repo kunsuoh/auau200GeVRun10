@@ -47,7 +47,7 @@ void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test
     cout << " Total entries = " << nEntries << endl;
     for (int iEvent = 0; iEvent < nEntries; ++iEvent)
     {
-        if(iEvent%1==0) cout << "Working on eventNumber " << iEvent << endl;
+        if(iEvent%100==0) cout << "Working on eventNumber " << iEvent << endl;
 
         npeChain->Clear();
         int iret = npeChain->Make();
