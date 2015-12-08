@@ -457,20 +457,19 @@ void StRefMultCorr::read()
  //     cout << "StRefMultCorr::read  Start_runId = " << mStart_runId[id] << ", Stop_runId = " << mStop_runId[id] << endl;
  //     cout << "StRefMultCorr::read  Start_zvertex = " << mStart_zvertex[id] << ", Stop_zvertex = " << mStop_zvertex[id] << endl;
  //     cout << "StRefMultCorr::read  Normalize_stop = " << mNormalize_stop[id] << endl;
-      for(Int_t i=0;i<mNCentrality;i++){
+ //     for(Int_t i=0;i<mNCentrality;i++){
  //       cout << Form("StRefMultCorr::read  Centrality %3d-%3d %%, refmult > %4d", 75-5*i, 80-5*i, mCentrality_bins[i][id]) << endl;
-      }
-
-      for(Int_t i=0;i<mNPar_z_vertex;i++) {
+ //     }
+ //     for(Int_t i=0;i<mNPar_z_vertex;i++) {
  //         cout << "mPar_z_vertex[" << i << "] = " << mPar_z_vertex[i][id] <<  endl;
-      }
-      for(Int_t i=0;i<mNPar_weight;i++) {
+ //     }
+ //     for(Int_t i=0;i<mNPar_weight;i++) {
  //         cout << "mPar_weight[" << i << "] = " << mPar_weight[i][id] << endl;
-      }
-      for(Int_t i=0;i<mNPar_luminosity;i++) {
+ //     }
+ //     for(Int_t i=0;i<mNPar_luminosity;i++) {
  //         cout << "mPar_luminosity[" << i << "] = " << mPar_luminosity[i][id] << endl;
-      }
-      cout << endl;
+ //     }
+ //     cout << endl;
     }
   }
   else
