@@ -169,7 +169,8 @@ bool StLowPtNpeAnaMaker::isGoodEvent() const
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodTrack(StPicoTrack const * const trk) const
 {
-    return trk->gMom().perp() > cuts::pt &&
+    return trk->gMom().perp() > cuts::ptMin &&
+    return trk->gMom().perp() < cuts::ptMax &&
     trk->nHitsFit() >= cuts::nHitsFit &&
     (float)trk->nHitsFit()/(float)trk->nHitsMax() > cuts::nHitsRatioMin &&
     (float)trk->nHitsFit()/(float)trk->nHitsMax() < cuts::nHitsRatioMax ;
@@ -180,7 +181,7 @@ bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
 {
     return
     isGoodTrack(trk) &&
-    trk->gMom().pseudoRapidity() < cuts::etaTagged &&
+    fabs(trk->gMom().pseudoRapidity()) < cuts::etaTagged &&
     trk->nHitsDedx() >= cuts::nHitsDedx &&
     trk->dca() < cuts::globalDca ;
   //  trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi() > cuts::phiMax1 &&
@@ -202,7 +203,7 @@ bool StLowPtNpeAnaMaker::isPartnerElectron(StPicoTrack const * const trk) const
 {
     return
     isGoodTrack(trk) &&
-    trk->gMom().pseudoRapidity() < cuts::etaPartner &&
+    fabs(trk->gMom().pseudoRapidity()) < cuts::etaPartner &&
     isTpcPid(trk, cuts::nSigmaPartnerElectron) ;
 }
 
@@ -239,9 +240,6 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     float eta = trk->gMom().pseudoRapidity();
     
     cout << pt << " " << eta << endl;
-
-    if (pt > 5.) return;
-    if (eta > 0.5 || eta < -0.5) return;
 
     float TOF = trk->btof();
     float PathL = trk->btofBeta()*TOF;

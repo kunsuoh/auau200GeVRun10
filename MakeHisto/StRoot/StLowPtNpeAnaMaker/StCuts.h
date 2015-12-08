@@ -23,7 +23,8 @@ namespace cuts
     // track
     int const nHitsFit = 20;
     float const nHitsRatioMin = 0.52; float const nHitsRatioMax = 1.2;
-    float const pt = .2;
+    float const ptMin = .2;
+    float const ptMax = 5.;
     float const nSigmaTaggedElectron = 3.;
     float const nSigmaPartnerElectron = 3.;
     
