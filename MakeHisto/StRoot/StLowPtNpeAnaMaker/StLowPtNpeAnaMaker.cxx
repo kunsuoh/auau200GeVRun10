@@ -76,6 +76,9 @@ void StLowPtNpeAnaMaker::Clear(Option_t *opt)
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Make()
 {
+
+    StRefMultCorr* refmultcorr = new StRefMultCorr();
+
     if (!mPicoDstMaker)
     {
         LOG_WARN << " No PicoDstMaker! Skip! " << endm;
@@ -98,7 +101,6 @@ Int_t StLowPtNpeAnaMaker::Make()
         float vZ = mPicoEvent->primaryVertex().z();
         float zdcCoincidenceRate = mPicoEvent->ZDCx();
 
-        StRefMultCorr* refmultcorr = new StRefMultCorr();
 
         refmultcorr->init(RunId);  //11078000
         refmultcorr->initEvent(refmult, vZ, zdcCoincidenceRate) ;
