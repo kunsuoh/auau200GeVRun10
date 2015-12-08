@@ -46,9 +46,6 @@ StLowPtNpeAnaMaker::~StLowPtNpeAnaMaker()
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Init()
 {
-    refmultcorr = new StRefMultCorr();
-    refmultcorr->init(mPicoEvent->runId());  //11078000
-
     nbin = 102;
 
     for (int i=0 ; i<7 ; i++)
@@ -106,6 +103,8 @@ Int_t StLowPtNpeAnaMaker::Make()
         float vZ = mPicoEvent->primaryVertex().z();
         float zdcCoincidenceRate = mPicoEvent->ZDCx();
 
+        refmultcorr = new StRefMultCorr();
+        refmultcorr->init(mPicoEvent->runId());
 
         refmultcorr->initEvent(refmult, vZ, zdcCoincidenceRate) ;
         iCent = refmultcorr->getCentralityBin6();
