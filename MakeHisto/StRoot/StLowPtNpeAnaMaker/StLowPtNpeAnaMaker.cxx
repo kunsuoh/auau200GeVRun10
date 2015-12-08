@@ -47,6 +47,7 @@ StLowPtNpeAnaMaker::~StLowPtNpeAnaMaker()
 Int_t StLowPtNpeAnaMaker::Init()
 {
     refmultcorr = new StRefMultCorr();
+    refmultcorr->init(RunId);  //11078000
 
     nbin = 102;
 
@@ -71,7 +72,7 @@ Int_t StLowPtNpeAnaMaker::Finish()
         histoAll[i][j][k]->Write();
     }
 
-    
+    mOutputFile->Write();
     mOutputFile->Close();
     return kStOK;
 }
@@ -107,7 +108,6 @@ Int_t StLowPtNpeAnaMaker::Make()
         float zdcCoincidenceRate = mPicoEvent->ZDCx();
 
 
-        refmultcorr->init(RunId);  //11078000
         refmultcorr->initEvent(refmult, vZ, zdcCoincidenceRate) ;
         iCent = refmultcorr->getCentralityBin6();
         weight = refmultcorr->getWeight();
