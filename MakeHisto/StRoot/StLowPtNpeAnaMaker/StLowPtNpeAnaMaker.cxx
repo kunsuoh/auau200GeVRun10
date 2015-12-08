@@ -10,7 +10,7 @@
 #include "../StPicoDstMaker/StPicoDstMaker.h"
 #include "../StPicoDstMaker/StPicoEvent.h"
 #include "../StPicoDstMaker/StPicoTrack.h"
-#include "StRefMultCorr.h"
+#include "../StRefMultCorr/StRefMultCorr.h"
 
 #include "StLowPtNpeAnaMaker.h"
 #include "StElectronPair.h"
@@ -84,10 +84,10 @@ Int_t StLowPtNpeAnaMaker::Make()
     
     if (isGoodEvent())
     {
-        int RunId = mPicoEvent->Event_mRunId[0];
-        float refmult = picoDst->Event_mRefMultNeg[0] + picoDst->Event_mRefMultPos[0];
-        float vZ = picoDst->Event_mPrimaryVertex_mX3[0];
-        float zdcCoincidenceRate = picoDst->Event_mZDCx[0];
+        int RunId = mPicoEvent->runId();
+        float refmult = picoDst->refMult();
+        float vZ = picoDst->primaryVertex().z();
+        float zdcCoincidenceRate = picoDst->ZDCx();
 
         refmultcorr->init(RunId);  //11078000
         refmultcorr->initEvent(refmult, vZ, zdcCoincidenceRate) ;
@@ -244,7 +244,7 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     for (int k=0;k<5;k++) if (TMath::Abs(eta) < k*0.1 + 0.1) {iEta=k;break;}
 
     
-    histo[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
-    histo[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
+    histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
+    histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
 
 }

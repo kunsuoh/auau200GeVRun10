@@ -12,6 +12,7 @@
  */
 
 #include "StMaker.h"
+#include "TH2F.h"
 
 class TTree;
 class TFile;
