@@ -32,6 +32,7 @@ void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test
     gSystem->Load("StBTofUtil");
     gSystem->Load("StPicoDstMaker");
     gSystem->Load("StLowPtNpeAnaMaker");
+    gSystem->Load("StRefMultCorr");
 
     npeChain = new StChain();
     
