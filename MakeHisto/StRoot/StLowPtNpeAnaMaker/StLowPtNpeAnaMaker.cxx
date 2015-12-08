@@ -38,13 +38,12 @@ StLowPtNpeAnaMaker::~StLowPtNpeAnaMaker()
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Init()
 {
-    StRefMultCorr* refmultcorr = new StRefMultCorr();
 
     for (int i=0 ; i<7 ; i++)
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
     {
-        histoAll[i][j][k] = new TH2D(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+        histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
     }
     return kStOK;
 }
@@ -85,9 +84,11 @@ Int_t StLowPtNpeAnaMaker::Make()
     if (isGoodEvent())
     {
         int RunId = mPicoEvent->runId();
-        float refmult = picoDst->refMult();
-        float vZ = picoDst->primaryVertex().z();
-        float zdcCoincidenceRate = picoDst->ZDCx();
+        float refmult = mPicoEvent->refMult();
+        float vZ = mPicoEvent->primaryVertex().z();
+        float zdcCoincidenceRate = mPicoEvent->ZDCx();
+
+        StRefMultCorr* refmultcorr = new StRefMultCorr();
 
         refmultcorr->init(RunId);  //11078000
         refmultcorr->initEvent(refmult, vZ, zdcCoincidenceRate) ;
@@ -222,8 +223,8 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     float pt = trk->gMom().perp();
     float eta = trk->gMom().pseudoRapidity();
     
-    if (pt > 5.) continue;
-    if (eta > 0.5 || eta < -0.5) continue;
+    if (pt > 5.) return;
+    if (eta > 0.5 || eta < -0.5) return;
 
     float TOF = trk->btof();
     float PathL = trk->btofBeta()*TOF;
