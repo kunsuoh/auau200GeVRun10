@@ -118,9 +118,9 @@ Int_t StLowPtNpeAnaMaker::Make()
         {
             StPicoTrack const* trk = picoDst->track(iTrack);
             if (!trk) continue;
+            cout << nTracks << " " << iTrack << endl;
             if (isElectron(trk))
             {
-                cout << nTracks << " " << iTrack << endl;
                 fillHistogram(trk);
                 if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
             }
