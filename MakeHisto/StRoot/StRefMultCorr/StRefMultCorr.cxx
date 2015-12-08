@@ -33,7 +33,7 @@
 #include "TRandom.h"
 #include "TString.h"
 
-ClassImp(StRefMultCorr)
+//ClassImp(StRefMultCorr)
 
 using std::cout ;
 using std::endl ;
@@ -359,6 +359,33 @@ Int_t StRefMultCorr::getCentralityBin9() const
 
   return CentBin9;
 }
+//____________________________________________________________________________________________________
+Int_t StRefMultCorr::getCentralityBin6() const
+{
+    Int_t CentBin6 = -1;
+    
+    // Invalid index
+    if ( !isIndexOk() ) return CentBin6 ;
+    
+    const Int_t CentBin16 = getCentralityBin16(); // Centrality bin 16
+    const Bool_t isCentralityOk = CentBin16 >= 0 && CentBin16 < mNCentrality ;
+    
+    // No centrality is defined
+    if (!isCentralityOk) return CentBin6 ;
+    
+    // First handle the exceptions
+    if(CentBin16==15) CentBin6 = 6; // most central 5%
+    else if(CentBin16==14) CentBin6 = 5;
+    else if(CentBin16==13 || CentBin16==12) CentBin6 = 4;
+    else if(CentBin16==11 || CentBin16==10 || CentBin16==9 || CentBin16==8) CentBin6 = 3;
+    else if(CentBin16==7 || CentBin16==6 || CentBin16==5 || CentBin16==4) CentBin6 = 2;
+    else if(CentBin16==3 || CentBin16==2 || CentBin16==1 || CentBin16==0) CentBin6 = 1;
+    else                    CentBin6 = (Int_t)0;
+    
+    return CentBin6;
+}
+
+
 
 //____________________________________________________________________________________________________
 void StRefMultCorr::read()

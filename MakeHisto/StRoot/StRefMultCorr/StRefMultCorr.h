@@ -1,4 +1,6 @@
 //----------------------------------------------------------------------------------------------------
+// Add for getCentralityBin6() by Kunsu 
+
 // $Id: StRefMultCorr.h,v 1.5 2011/11/08 19:11:03 hmasui Exp $
 // $Log: StRefMultCorr.h,v $
 // Revision 1.5  2011/11/08 19:11:03  hmasui
@@ -25,14 +27,14 @@
 //   - Provide "re-weighting" correction, only relevant to the peripheral bins
 //
 //  Centrality binning:
-//     Bin       Centrality (16)   Centrality (9)
-//     0            75-80%            70-80%
-//     1            70-75%            60-70%
-//     2            65-70%            50-60%
-//     3            60-65%            40-50%
-//     4            55-60%            30-40%
-//     5            50-55%            20-30%
-//     6            45-50%            10-20%
+//     Bin       Centrality (16)   Centrality (9)   Centrality (6)
+//     0            75-80%            70-80%			80-  %
+//     1            70-75%            60-70%			60-80%
+//     2            65-70%            50-60%			40-60%
+//     3            60-65%            40-50%			20-40%
+//     4            55-60%            30-40%			10-20%
+//     5            50-55%            20-30%			 5-10%
+//     6            45-50%            10-20%			 0- 5%
 //     7            40-45%             5-10%
 //     8            35-40%             0- 5%
 //     9            30-35%
@@ -46,7 +48,7 @@
 //  See how to use this class in StRefMultCorr/macros/getCentralityBins.C
 //
 //  authors: Alexander Schmah, Hiroshi Masui
-//----------------------------------------------------------------------------------------------------
+//----------------------------------------------
 
 #ifndef __StRefMultCorr_h__
 #define __StRefMultCorr_h__
@@ -75,6 +77,8 @@ class StRefMultCorr {
 
     /// Get 9 centrality bins (10% increment except for 0-5 and 5-10)
     Int_t getCentralityBin9() const;
+
+    Int_t getCentralityBin6() const;
 
     /// Re-weighting correction, correction is only applied up to mNormalize_step (energy dependent)
     Double_t getWeight() const;
@@ -122,7 +126,7 @@ private:
     std::vector<Double_t> mPar_luminosity[mNPar_luminosity] ; /// parameters for luminosity correction (valid only for 200 GeV)
     Int_t mParameterIndex; /// Index of correction parameters
 
-    ClassDef(StRefMultCorr, 0)
+//    ClassDef(StRefMultCorr, 0)
 };
 #endif
 
