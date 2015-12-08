@@ -180,11 +180,11 @@ bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
 {
     return
     isGoodTrack(trk) &&
-    trk->gMom().pseudoRapidity() < cuts::etaTagged &&
+    fabs(trk->gMom().pseudoRapidity()) < cuts::etaTagged &&
     trk->nHitsDedx() >= cuts::nHitsDedx &&
-    trk->dca() < cuts::globalDca &&
-    trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi() > cuts::phiMax1 &&
-    trk->gMom().phi() < cuts::phiMin2 && trk->gMom().phi() > cuts::phiMax2 ;
+    trk->dca() < cuts::globalDca ;
+   // trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi() > cuts::phiMax1 &&
+   // trk->gMom().phi() < cuts::phiMin2 && trk->gMom().phi() > cuts::phiMax2 ;
 }
 
 //-----------------------------------------------------------------------------
@@ -202,7 +202,7 @@ bool StLowPtNpeAnaMaker::isPartnerElectron(StPicoTrack const * const trk) const
 {
     return
     isGoodTrack(trk) &&
-    trk->gMom().pseudoRapidity() < cuts::etaPartner &&
+    fabs(trk->gMom().pseudoRapidity()) < cuts::etaPartner &&
     isTpcPid(trk, cuts::nSigmaPartnerElectron) ;
 }
 
