@@ -169,8 +169,9 @@ bool StLowPtNpeAnaMaker::isGoodEvent() const
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodTrack(StPicoTrack const * const trk) const
 {
-    return trk->gMom().perp() > cuts::ptMin &&
-    return trk->gMom().perp() < cuts::ptMax &&
+    return
+    trk->gMom().perp() > cuts::ptMin &&
+    trk->gMom().perp() < cuts::ptMax &&
     trk->nHitsFit() >= cuts::nHitsFit &&
     (float)trk->nHitsFit()/(float)trk->nHitsMax() > cuts::nHitsRatioMin &&
     (float)trk->nHitsFit()/(float)trk->nHitsMax() < cuts::nHitsRatioMax ;
