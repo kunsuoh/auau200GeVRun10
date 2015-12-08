@@ -41,7 +41,7 @@ public:
     double weight;
     int nbin;
     
-    StRefMultCorr* refmultcorr
+    StRefMultCorr* refmultcorr;
 
 private:
     bool  isGoodEvent() const;
