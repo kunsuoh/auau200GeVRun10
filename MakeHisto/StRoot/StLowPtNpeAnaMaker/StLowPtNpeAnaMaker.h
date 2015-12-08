@@ -38,7 +38,8 @@ public:
     
     int iCent;
     double weight;
-    
+    int nbin;
+
 private:
     bool  isGoodEvent() const;
     bool  isGoodTrack(StPicoTrack const*) const;
