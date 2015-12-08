@@ -118,9 +118,9 @@ Int_t StLowPtNpeAnaMaker::Make()
         {
             StPicoTrack const* trk = picoDst->track(iTrack);
             if (!trk) continue;
-            cout << nTracks << " " << iTrack << endl;
             if (isElectron(trk))
             {
+                cout << nTracks << " " << iTrack << endl;
                 fillHistogram(trk);
                 if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
             }
@@ -180,11 +180,11 @@ bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
 {
     return
     isGoodTrack(trk) &&
-    fabs(trk->gMom().pseudoRapidity()) < cuts::etaTagged &&
+    trk->gMom().pseudoRapidity() < cuts::etaTagged &&
     trk->nHitsDedx() >= cuts::nHitsDedx &&
     trk->dca() < cuts::globalDca ;
-   // trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi() > cuts::phiMax1 &&
-   // trk->gMom().phi() < cuts::phiMin2 && trk->gMom().phi() > cuts::phiMax2 ;
+  //  trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi() > cuts::phiMax1 &&
+  //  trk->gMom().phi() < cuts::phiMin2 && trk->gMom().phi() > cuts::phiMax2 ;
 }
 
 //-----------------------------------------------------------------------------
@@ -202,7 +202,7 @@ bool StLowPtNpeAnaMaker::isPartnerElectron(StPicoTrack const * const trk) const
 {
     return
     isGoodTrack(trk) &&
-    fabs(trk->gMom().pseudoRapidity()) < cuts::etaPartner &&
+    trk->gMom().pseudoRapidity() < cuts::etaPartner &&
     isTpcPid(trk, cuts::nSigmaPartnerElectron) ;
 }
 
