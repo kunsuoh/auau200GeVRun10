@@ -19,6 +19,7 @@ class TFile;
 class StPicoDstMaker;
 class StElectronPair;
 class StPicoNpeHists;
+class StRefMultCorr;
 
 
 class StLowPtNpeAnaMaker : public StMaker
@@ -39,6 +40,8 @@ public:
     int iCent;
     double weight;
     int nbin;
+    
+    StRefMultCorr* refmultcorr
 
 private:
     bool  isGoodEvent() const;

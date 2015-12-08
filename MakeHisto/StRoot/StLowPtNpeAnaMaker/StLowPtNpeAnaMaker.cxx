@@ -46,8 +46,9 @@ StLowPtNpeAnaMaker::~StLowPtNpeAnaMaker()
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Init()
 {
-    nbin = 102;
+    refmultcorr = new StRefMultCorr();
 
+    nbin = 102;
 
     for (int i=0 ; i<7 ; i++)
     for (int j=0 ; j<5 ; j++)
@@ -76,8 +77,6 @@ void StLowPtNpeAnaMaker::Clear(Option_t *opt)
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Make()
 {
-
-    StRefMultCorr* refmultcorr = new StRefMultCorr();
 
     if (!mPicoDstMaker)
     {
