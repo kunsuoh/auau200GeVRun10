@@ -10,6 +10,7 @@
 #include "../StPicoDstMaker/StPicoDstMaker.h"
 #include "../StPicoDstMaker/StPicoEvent.h"
 #include "../StPicoDstMaker/StPicoTrack.h"
+#include "StRefMultCorr.h"
 
 #include "StLowPtNpeAnaMaker.h"
 #include "StElectronPair.h"
@@ -37,6 +38,14 @@ StLowPtNpeAnaMaker::~StLowPtNpeAnaMaker()
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Init()
 {
+    StRefMultCorr* refmultcorr = new StRefMultCorr();
+
+    for (int i=0 ; i<7 ; i++)
+    for (int j=0 ; j<5 ; j++)
+    for (int k=0 ; k<102 ; k++)
+    {
+        histoAll[i][j][k] = new TH2D(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+    }
     return kStOK;
 }
 
@@ -75,6 +84,16 @@ Int_t StLowPtNpeAnaMaker::Make()
     
     if (isGoodEvent())
     {
+        int RunId = mPicoEvent->Event_mRunId[0];
+        float refmult = picoDst->Event_mRefMultNeg[0] + picoDst->Event_mRefMultPos[0];
+        float vZ = picoDst->Event_mPrimaryVertex_mX3[0];
+        float zdcCoincidenceRate = picoDst->Event_mZDCx[0];
+
+        refmultcorr->init(RunId);  //11078000
+        refmultcorr->initEvent(refmult, vZ, zdcCoincidenceRate) ;
+        iCent = refmultcorr->getCentralityBin6();
+        weight = refmultcorr->getWeight();
+
         UInt_t nTracks = picoDst->numberOfTracks();
         
         std::vector<unsigned short> idxPicoTaggedEs;
@@ -200,4 +219,32 @@ bool StLowPtNpeAnaMaker::isGoodElectronPair(StElectronPair const & epair, float 
 //-----------------------------------------------------------------------------
 void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 {
+    float pt = trk->gMom().perp();
+    float eta = trk->gMom().pseudoRapidity();
+    
+    if (pt > 5.) continue;
+    if (eta > 0.5 || eta < -0.5) continue;
+
+    float TOF = trk->btof();
+    float PathL = trk->btofBeta()*TOF;
+    float pp = trk->gMom().mag();
+    
+    float dbeta = 1 - PathL/TOF/2.99792458e1*TMath::Sqrt(1-0.000511*0.000511/pp/pp);
+    float nSigmaElectron = trk->nSigmaElectron();
+    
+    int iPt=0;
+    int iEta=0;
+    
+    for (int k=0;k<nbin+1;k++) {
+        if (pt < ptbin[k]) {
+            iPt=k-1;
+            break;
+        }
+    }
+    for (int k=0;k<5;k++) if (TMath::Abs(eta) < k*0.1 + 0.1) {iEta=k;break;}
+
+    
+    histo[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
+    histo[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
+
 }
