@@ -39,6 +39,7 @@ public:
     int iCent;
     double weight;
     int nbin;
+    float ptbin[];
 
 private:
     bool  isGoodEvent() const;
