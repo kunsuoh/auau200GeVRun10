@@ -268,7 +268,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 // TOF calibration
 //--------------------
 //-----------------------------------------------------------------------------
-void StLowPtNpeAnaMaker::loadTofEvent() const
+void StLowPtNpeAnaMaker::loadTofEvent() 
 {
     TString temp;
     ifstream list_PicoQa("QA_P10ik.txt"); // by beta
