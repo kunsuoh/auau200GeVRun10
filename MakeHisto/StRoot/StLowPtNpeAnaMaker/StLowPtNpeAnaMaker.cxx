@@ -77,6 +77,7 @@ void StLowPtNpeAnaMaker::Clear(Option_t *opt)
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Make()
 {
+    cout << "CHECK!!! in Make()" << endl;
 
     if (!mPicoDstMaker)
     {
@@ -95,7 +96,8 @@ Int_t StLowPtNpeAnaMaker::Make()
     
     if (isGoodEvent())
     {
-        
+        cout << "CHECK!!! after isGoodEvent()" << endl;
+
         
         float refmult = mPicoEvent->refMult();
         float vZ = mPicoEvent->primaryVertex().z();
@@ -114,7 +116,6 @@ Int_t StLowPtNpeAnaMaker::Make()
         std::vector<unsigned short> idxPicoPartnerEs;
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
-            cout << "CHECK!!!" << endl;
             StPicoTrack const* trk = picoDst->track(iTrack);
             if (!trk) continue;
             if (isElectron(trk))
