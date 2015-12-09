@@ -77,8 +77,6 @@ void StLowPtNpeAnaMaker::Clear(Option_t *opt)
 //-----------------------------------------------------------------------------
 Int_t StLowPtNpeAnaMaker::Make()
 {
-    cout << "CHECK!!! in Make()" << endl;
-
     if (!mPicoDstMaker)
     {
         LOG_WARN << " No PicoDstMaker! Skip! " << endm;
@@ -274,7 +272,9 @@ void StLowPtNpeAnaMaker::loadTofEvent()
 {
     TString temp;
     ifstream list_PicoQa("QA_P10ik.txt"); // by beta
-    
+    if (!list_PicoQa) {
+        cout << "No QA file... " << endl;
+    }
     for(int i=0;i<2388;i++){
         list_PicoQa >> temp;
         mQa_runID[i] = temp.Atoi();
