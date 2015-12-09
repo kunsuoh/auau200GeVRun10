@@ -33,6 +33,9 @@ public:
     virtual void  Clear(Option_t *opt="");
     virtual Int_t Finish();
     
+    bool  isTofEvent() ;
+    void  loadTofEvent() ;
+
     TH2F * histoAll[7][5][102];
     TH2F * histoPhEU[7][5][102];
     TH2F * histoPhEL[7][5][102];
@@ -48,8 +51,6 @@ public:
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
-    bool  isTofEvent() ;
-    void  loadTofEvent() ;
     bool  isGoodEvent() const;
     bool  isGoodTrack(StPicoTrack const*) const;
     bool  isElectron(StPicoTrack const*) const;
