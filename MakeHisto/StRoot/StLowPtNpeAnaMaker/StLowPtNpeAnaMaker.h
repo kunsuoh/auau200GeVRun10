@@ -46,6 +46,9 @@ public:
     int tofcal;
     
 private:
+    void  getCalTofTrack(StPicoTrack const*, float&) const;
+    bool  isTofEvent() const;
+    void  loadTofEvent() const;
     bool  isGoodEvent() const;
     bool  isGoodTrack(StPicoTrack const*) const;
     bool  isElectron(StPicoTrack const*) const;
@@ -64,6 +67,10 @@ private:
     
     TFile* mOutputFile;
     TTree* mTree;
+
+    int mQa_runID[3000];
+    float mQa_west[3000], mQa_east[3000];
+    
     
     ClassDef(StLowPtNpeAnaMaker, 0)
 };
