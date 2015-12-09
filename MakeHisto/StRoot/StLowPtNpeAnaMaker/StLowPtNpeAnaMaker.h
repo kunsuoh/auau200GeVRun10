@@ -48,8 +48,8 @@ public:
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
-    bool  isTofEvent() const;
-    void  loadTofEvent() const;
+    bool  isTofEvent() ;
+    void  loadTofEvent() ;
     bool  isGoodEvent() const;
     bool  isGoodTrack(StPicoTrack const*) const;
     bool  isElectron(StPicoTrack const*) const;
