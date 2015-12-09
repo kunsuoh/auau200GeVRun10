@@ -158,7 +158,7 @@ Int_t StLowPtNpeAnaMaker::Make()
 }
 
 //-----------------------------------------------------------------------------
-bool StLowPtNpeAnaMaker::isGoodEvent() const
+bool StLowPtNpeAnaMaker::isGoodEvent()
 {
     return
     isTofEvent() &&
@@ -268,7 +268,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 // TOF calibration
 //--------------------
 //-----------------------------------------------------------------------------
-void StLowPtNpeAnaMaker::loadTofEvent()
+void StLowPtNpeAnaMaker::loadTofEvent() const
 {
     TString temp;
     ifstream list_PicoQa("QA_P10ik.txt"); // by beta
@@ -282,7 +282,19 @@ void StLowPtNpeAnaMaker::loadTofEvent()
         mQa_east[i]  = temp.Atof();
     }
 }
-
+//-----------------------------------------------------------------------------
+bool StLowPtNpeAnaMaker::isTofEvent()
+{
+    mTofcal = -1;
+    for(int i=0;i<2388;i++){
+        if(mQa_runID[i]==mPicoEvent->runId()) {
+            mTofcal = i;
+        }
+    }
+    
+    if (mTofcal < 0) return false;
+    else return true;
+}
 //-----------------------------------------------------------------------------
 void StLowPtNpeAnaMaker::getCalTofTrack(StPicoTrack const * const trk, float & dbeta) const
 {

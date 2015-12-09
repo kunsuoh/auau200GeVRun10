@@ -33,7 +33,7 @@ public:
     virtual void  Clear(Option_t *opt="");
     virtual Int_t Finish();
     
-    inline bool isTofEvent();
+    bool  isTofEvent();
     void  loadTofEvent();
 
     TH2F * histoAll[7][5][102];
@@ -51,7 +51,7 @@ public:
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
-    bool  isGoodEvent() const;
+    bool  isGoodEvent();
     bool  isGoodTrack(StPicoTrack const*) const;
     bool  isElectron(StPicoTrack const*) const;
     bool  isTaggedElectron(StPicoTrack const*) const;
@@ -72,17 +72,5 @@ private:
     
     ClassDef(StLowPtNpeAnaMaker, 0)
 };
-//-----------------------------------------------------------------------------
-inline bool StLowPtNpeAnaMaker::isTofEvent()
-{
-    mTofcal = -1;
-    for(int i=0;i<2388;i++){
-        if(mQa_runID[i]==mPicoEvent->runId()) {
-            mTofcal = i;
-        }
-    }
-    
-    if (mTofcal < 0) return false;
-    else return true;
-}
+
 #endif
