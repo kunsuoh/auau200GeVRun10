@@ -64,7 +64,6 @@ private:
     
     StPicoDstMaker* mPicoDstMaker;
     StPicoEvent*    mPicoEvent;
-    StPicoNpeHists*  mPicoNpeHists;
     
     TFile* mOutputFile;
     TTree* mTree;

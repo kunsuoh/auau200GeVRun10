@@ -22,7 +22,7 @@ ClassImp(StLowPtNpeAnaMaker)
 //-----------------------------------------------------------------------------
 StLowPtNpeAnaMaker::StLowPtNpeAnaMaker(char const* makerName, StPicoDstMaker* picoMaker, char const* fileBaseName)
 : StMaker(makerName), mPicoDstMaker(picoMaker), mPicoEvent(NULL),
-mOutputFile(NULL)
+mOutputFile(NULL), mTofcal(NULL)
 {
     
     TString baseName(fileBaseName);
@@ -304,8 +304,8 @@ void StLowPtNpeAnaMaker::getCalTofTrack(StPicoTrack const * const trk, float & d
     int tofTrayId = tofCellId/192; // tof calibration
     if(tofTrayId == 96 || tofTrayId == 97 || tofTrayId == 98 || tofTrayId == 101) return;
     if(tofTrayId==120) cout << "oops!" << endl;
-    if(tofTrayId  <60 && tofTrayId >= 0) 	beta = mQa_west[tofcal] + beta_;        //tof_cal = tof + qa_west[tofcal]; // tof calibration
-    else if(tofTrayId >=60 && tofTrayId < 120) beta = mQa_east[tofcal] + beta_;   //tof_cal = tof + qa_east[tofcal]; // tof calibration
+    if(tofTrayId  <60 && tofTrayId >= 0) 	beta = mQa_west[mTofcal] + beta_;        //tof_cal = tof + qa_west[tofcal]; // tof calibration
+    else if(tofTrayId >=60 && tofTrayId < 120) beta = mQa_east[mTofcal] + beta_;   //tof_cal = tof + qa_east[tofcal]; // tof calibration
     else {
         beta = beta_;
         cout << "tofTrayId is wrong : " << tofTrayId << endl;
