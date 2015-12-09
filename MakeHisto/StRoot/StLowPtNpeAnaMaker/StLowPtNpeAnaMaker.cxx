@@ -282,19 +282,7 @@ void StLowPtNpeAnaMaker::loadTofEvent()
         mQa_east[i]  = temp.Atof();
     }
 }
-//-----------------------------------------------------------------------------
-bool StLowPtNpeAnaMaker::isTofEvent()
-{
-    mTofcal = -1;
-    for(int i=0;i<2388;i++){
-        if(mQa_runID[i]==mPicoEvent->runId()) {
-            mTofcal = i;
-        }
-    }
-    
-    if (mTofcal < 0) return false;
-    else return true;
-}
+
 //-----------------------------------------------------------------------------
 void StLowPtNpeAnaMaker::getCalTofTrack(StPicoTrack const * const trk, float & dbeta) const
 {

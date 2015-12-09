@@ -33,8 +33,8 @@ public:
     virtual void  Clear(Option_t *opt="");
     virtual Int_t Finish();
     
-    bool  isTofEvent() ;
-    void  loadTofEvent() ;
+    inline bool isTofEvent();
+    void  loadTofEvent();
 
     TH2F * histoAll[7][5][102];
     TH2F * histoPhEU[7][5][102];
@@ -72,5 +72,17 @@ private:
     
     ClassDef(StLowPtNpeAnaMaker, 0)
 };
-
+//-----------------------------------------------------------------------------
+inline bool isTofEvent()
+{
+    mTofcal = -1;
+    for(int i=0;i<2388;i++){
+        if(mQa_runID[i]==mPicoEvent->runId()) {
+            mTofcal = i;
+        }
+    }
+    
+    if (mTofcal < 0) return false;
+    else return true;
+}
 #endif
