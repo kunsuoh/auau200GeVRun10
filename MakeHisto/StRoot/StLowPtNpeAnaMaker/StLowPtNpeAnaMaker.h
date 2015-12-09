@@ -33,21 +33,6 @@ public:
     virtual void  Clear(Option_t *opt="");
     virtual Int_t Finish();
     
-    bool  isTofEvent();
-    void  loadTofEvent();
-
-    TH2F * histoAll[7][5][102];
-    TH2F * histoPhEU[7][5][102];
-    TH2F * histoPhEL[7][5][102];
-    
-    int iCent;
-    double weight;
-    int nbin;
-    
-    StRefMultCorr* refmultcorr;
-    int mQa_runID[3000];
-    float mQa_west[3000], mQa_east[3000];
-    int mTofcal;
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
@@ -59,15 +44,29 @@ private:
     bool  isTofMatching(StPicoTrack const * const trk, float cutY, float cutZ) const;
     bool  isTofPid(StPicoTrack const *, float) const;
     bool  isTpcPid(StPicoTrack const *, float) const;
-
     bool  isGoodElectronPair(StElectronPair const &, float) const;
     void  fillHistogram(StPicoTrack const*) const;
+    bool  isTofEvent();
+    void  loadTofEvent();
+    
+    int iCent;
+    double weight;
+    int nbin;
+    int mQa_runID[3000];
+    float mQa_west[3000], mQa_east[3000];
+    int mTofcal;
     
     StPicoDstMaker* mPicoDstMaker;
     StPicoEvent*    mPicoEvent;
     
     TFile* mOutputFile;
     TTree* mTree;
+    
+    StRefMultCorr* refmultcorr;
+    TH2F * histoAll[7][5][102];
+    TH2F * histoPhEU[7][5][102];
+    TH2F * histoPhEL[7][5][102];
+
 
     
     ClassDef(StLowPtNpeAnaMaker, 0)
