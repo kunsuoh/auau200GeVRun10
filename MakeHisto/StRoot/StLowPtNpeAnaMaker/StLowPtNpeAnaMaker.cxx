@@ -72,7 +72,7 @@ Int_t StLowPtNpeAnaMaker::Init()
         //cout << i << " "  << qa_runID[i] << " " << qa_west[i] << " " << qa_east[i] << endl;
     }
     
-    int tofcal = -1;
+     tofcal = -1;
     for(int i=0;i<2388;i++){
         if(qa_runID[i]==mPicoEvent->runId()) {
             tofcal = i;
@@ -274,7 +274,7 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     float beta = beta_;
     short tofCellId = (Short_t) trk->btofCellId(); // tof calibration
     int tofTrayId = tofCellId/192; // tof calibration
-    if(tofTrayId == 96 || tofTrayId == 97 || tofTrayId == 98 || tofTrayId == 101) checkTOF++;
+    if(tofTrayId == 96 || tofTrayId == 97 || tofTrayId == 98 || tofTrayId == 101) return;
     if(tofTrayId==120) cout << "oops!" << endl;
     if(tofTrayId  <60 && tofTrayId >= 0) 	beta = qa_west[tofcal] + beta_;        //tof_cal = tof + qa_west[tofcal]; // tof calibration
     else if(tofTrayId >=60 && tofTrayId < 120) beta = qa_east[tofcal] + beta_;   //tof_cal = tof + qa_east[tofcal]; // tof calibration

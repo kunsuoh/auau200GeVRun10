@@ -43,7 +43,8 @@ public:
     
     StRefMultCorr* refmultcorr;
     float tray[3000][120],qa_west[3000], qa_east[3000];
-
+    int tofcal;
+    
 private:
     bool  isGoodEvent() const;
     bool  isGoodTrack(StPicoTrack const*) const;
