@@ -73,7 +73,7 @@ private:
     ClassDef(StLowPtNpeAnaMaker, 0)
 };
 //-----------------------------------------------------------------------------
-inline bool isTofEvent()
+inline bool StLowPtNpeAnaMaker::isTofEvent()
 {
     mTofcal = -1;
     for(int i=0;i<2388;i++){
