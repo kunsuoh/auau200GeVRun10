@@ -41,10 +41,10 @@ public:
     double weight;
     int nbin;
     
+    StRefMultCorr* refmultcorr;
     int mQa_runID[3000];
     float mQa_west[3000], mQa_east[3000];
     int mTofcal;
-
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
