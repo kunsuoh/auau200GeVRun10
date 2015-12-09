@@ -282,6 +282,7 @@ void StLowPtNpeAnaMaker::loadTofEvent()
         mQa_west[i]  = temp.Atof();
         list_PicoQa >> temp;
         mQa_east[i]  = temp.Atof();
+        cout << mQa_runID[i] << " " << mQa_west[i] << endl;
     }
 }
 //-----------------------------------------------------------------------------
