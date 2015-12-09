@@ -54,6 +54,32 @@ Int_t StLowPtNpeAnaMaker::Init()
     {
         histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
     }
+    
+    //--------------------
+    // TOF calibration
+    //--------------------
+    TString temp;
+    int qa_runID[3000];
+    ifstream list_PicoQa("QA_P10ik.txt"); // by beta
+    
+    for(int i=0;i<2388;i++){
+        list_PicoQa >> temp;
+        qa_runID[i] = temp.Atoi();
+        list_PicoQa >> temp;
+        qa_west[i]  = temp.Atof();
+        list_PicoQa >> temp;
+        qa_east[i]  = temp.Atof();
+        //cout << i << " "  << qa_runID[i] << " " << qa_west[i] << " " << qa_east[i] << endl;
+    }
+    
+    int tofcal = -1;
+    for(int i=0;i<2388;i++){
+        if(qa_runID[i]==RunId) {
+            tofcal = i;
+        }
+    }
+
+    
     return kStOK;
 }
 
@@ -243,31 +269,9 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     
     cout << pt << " " << eta << endl;
 
-    //--------------------
-    // TOF calibration
-    //--------------------
-    TString temp;
-    int qa_runID[3000];
-    ifstream list_PicoQa("QA_P10ik.txt"); // by beta
-    StRefMultCorr* refmultcorr = new StRefMultCorr();
-    
-    for(int i=0;i<2388;i++){
-        list_PicoQa >> temp;
-        qa_runID[i] = temp.Atoi();
-        list_PicoQa >> temp;
-        qa_west[i]  = temp.Atof();
-        list_PicoQa >> temp;
-        qa_east[i]  = temp.Atof();
-        //cout << i << " "  << qa_runID[i] << " " << qa_west[i] << " " << qa_east[i] << endl;
-    }
-    
-    int tofcal = -1;
-    for(int i=0;i<2388;i++){
-        if(qa_runID[i]==RunId) {
-            tofcal = i;
-        }
-    }
+
     float beta_  = (Float_t) trk->btofBeta();
+    float beta = beta_;
     short tofCellId = (Short_t) trk->btofCellId(); // tof calibration
     int tofTrayId = tofCellId/192; // tof calibration
     if(tofTrayId == 96 || tofTrayId == 97 || tofTrayId == 98 || tofTrayId == 101) checkTOF++;

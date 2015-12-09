@@ -42,6 +42,7 @@ public:
     int nbin;
     
     StRefMultCorr* refmultcorr;
+    float tray[3000][120],qa_west[3000], qa_east[3000];
 
 private:
     bool  isGoodEvent() const;
