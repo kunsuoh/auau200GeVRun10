@@ -287,7 +287,7 @@ bool StLowPtNpeAnaMaker::isTofEvent() const
 {
     mTofcal = -1;
     for(int i=0;i<2388;i++){
-        if(qa_runID[i]==mPicoEvent->runId()) {
+        if(mQa_runID[i]==mPicoEvent->runId()) {
             mTofcal = i;
         }
     }
@@ -317,7 +317,7 @@ void StLowPtNpeAnaMaker::getCalTofTrack(StPicoTrack const * const trk, float & d
     float PathL = beta*TOF*30.;
     float pp = trk->gMom().mag();
     
-    float dbeta = 1 - PathL/TOF/2.99792458e1*TMath::Sqrt(1-0.000511*0.000511/pp/pp);
+    dbeta = 1 - PathL/TOF/2.99792458e1*TMath::Sqrt(1-0.000511*0.000511/pp/pp);
 
 }
 

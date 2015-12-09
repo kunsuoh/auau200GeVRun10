@@ -41,9 +41,10 @@ public:
     double weight;
     int nbin;
     
-    StRefMultCorr* refmultcorr;
-    float tray[3000][120],qa_west[3000], qa_east[3000];
-    int tofcal;
+    int mQa_runID[3000];
+    float mQa_west[3000], mQa_east[3000];
+    int mTofcal;
+
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
@@ -68,9 +69,6 @@ private:
     TFile* mOutputFile;
     TTree* mTree;
 
-    int mQa_runID[3000];
-    float mQa_west[3000], mQa_east[3000];
-    
     
     ClassDef(StLowPtNpeAnaMaker, 0)
 };
