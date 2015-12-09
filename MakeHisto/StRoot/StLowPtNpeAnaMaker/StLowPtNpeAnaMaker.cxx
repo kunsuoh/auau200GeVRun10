@@ -74,7 +74,7 @@ Int_t StLowPtNpeAnaMaker::Init()
     
     int tofcal = -1;
     for(int i=0;i<2388;i++){
-        if(qa_runID[i]==RunId) {
+        if(qa_runID[i]==mPicoEvent->runId()) {
             tofcal = i;
         }
     }
