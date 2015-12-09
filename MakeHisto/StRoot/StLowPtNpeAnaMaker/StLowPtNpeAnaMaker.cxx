@@ -282,7 +282,6 @@ void  StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
         beta = beta_;
         cout << "tofTrayId is wrong : " << tofTrayId << endl;
     }
-    pathl = beta*tof*30.;
     
     
 
