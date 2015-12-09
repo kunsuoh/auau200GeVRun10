@@ -271,7 +271,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 void StLowPtNpeAnaMaker::loadTofEvent() 
 {
     TString temp;
-    ifstream list_PicoQa("QA_P10ik.txt"); // by beta
+    ifstream list_PicoQa("StRoot/StLowPtNpeAnaMaker/QA_P10ik.txt"); // by beta
     if (!list_PicoQa) {
         cout << "No QA file... " << endl;
     }
