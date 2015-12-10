@@ -134,7 +134,7 @@ Int_t StLowPtNpeAnaMaker::Make()
         
         
         float const bField = mPicoEvent->bField();
-        
+        /*
         for (unsigned short ik = 0; ik < idxPicoTaggedEs.size(); ++ik)
         {
             
@@ -154,7 +154,7 @@ Int_t StLowPtNpeAnaMaker::Make()
                 
             } // .. end make electron pairs
         } // .. end of tagged e loop
-        
+        */
         idxPicoTaggedEs.clear();
         idxPicoPartnerEs.clear();
         
