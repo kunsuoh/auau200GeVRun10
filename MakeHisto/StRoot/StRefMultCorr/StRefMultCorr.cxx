@@ -380,7 +380,7 @@ Int_t StRefMultCorr::getCentralityBin6() const
     else if(CentBin16==11 || CentBin16==10 || CentBin16==9 || CentBin16==8) CentBin6 = 3;
     else if(CentBin16==7 || CentBin16==6 || CentBin16==5 || CentBin16==4) CentBin6 = 2;
     else if(CentBin16==3 || CentBin16==2 || CentBin16==1 || CentBin16==0) CentBin6 = 1;
-    else                    CentBin6 = (Int_t)0;
+    else                    CentBin6 = (Int_t)-1;
     
     return CentBin6;
 }
