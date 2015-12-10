@@ -67,7 +67,14 @@ private:
     TH2F * histoPhEU[7][5][102];
     TH2F * histoPhEL[7][5][102];
 
-
+    TH1D * hEvent;
+    TH1D * hEventVz;
+    TH1D * hEventVzVpdVz;
+    TH1D * hEventCentrality;
+    TH1D * hEventCentralityCorr;
+    TH1D * hEventRefMult;
+    TH1D * hEventRefMultCorr;
+    TH1D * hEventWeight;
     
     ClassDef(StLowPtNpeAnaMaker, 0)
 };

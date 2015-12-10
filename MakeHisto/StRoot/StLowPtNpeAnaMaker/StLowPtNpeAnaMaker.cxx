@@ -40,7 +40,15 @@ StLowPtNpeAnaMaker::~StLowPtNpeAnaMaker()
 Int_t StLowPtNpeAnaMaker::Init()
 {
     nbin = 102;
-
+    
+    hEvent = new TH1D("hEvent", "hEvent", 10,0,10);
+    hEventVz = new TH1D("hEventVz", "hEventVz", 100,-100,100);
+    hEventVzVpdVz = new TH2D("hEventVzVpdVz", "hEventVzVpdVz", 100,-100,100, 100,-100,100);
+    hEventCentrality = new TH1D("hEventCentrality", "hEventCentrality", 10,0,10);
+    hEventCentralityCorr = new TH1D("hEventCentralityCorr", "hEventCentralityCorr", 10,0,10);
+    hEventRefMult = new TH1D("hEventRefMult", "hEventRefMult", 1000,0,1000);
+    hEventRefMultCorr = new TH1D("hEventRefMultCorr", "hEventRefMultCorr", 1000,0,1000);
+    hEventWeight = new TH1D("hEventWeight", "hEventWeight", 100,0,10);
     for (int i=0 ; i<7 ; i++)
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
@@ -58,6 +66,14 @@ Int_t StLowPtNpeAnaMaker::Finish()
 {
     mOutputFile->cd();
     // write histograms
+    hEvent->Write();
+    hEventVz->Write();
+    hEventVzVpdVz->Write();
+    hEventCentrality->Write();
+    hEventCentralityCorr->Write();
+    hEventRefMult->Write();
+    hEventRefMultCorr->Write();
+    hEventWeight->Write();
     for (int i=0 ; i<7 ; i++)
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
@@ -111,6 +127,14 @@ Int_t StLowPtNpeAnaMaker::Make()
         }
         weight = refmultcorr->getWeight();
 
+        // Fill event histograms
+        hEvent->Fill(4);
+        hEventWeight->Fill(weight);
+        hEventCentrality->Fill(iCent);
+        hEventCentralityCorr->Fill(iCent,weight);
+        hEventRefMult->Fill(refmult);
+        hEventRefMultCorr->Fill(refmult,weight);
+        
         UInt_t nTracks = picoDst->numberOfTracks();
         
         std::vector<unsigned short> idxPicoTaggedEs;
@@ -167,10 +191,23 @@ Int_t StLowPtNpeAnaMaker::Make()
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodEvent()
 {
-    return
-    isTofEvent() &&
-    fabs(mPicoEvent->primaryVertex().z()) < cuts::vz &&
-    fabs(mPicoEvent->primaryVertex().z() - mPicoEvent->vzVpd()) < cuts::vzVpdVz;
+    hEvent->Fill(0);
+    hEventVz->Fill(mPicoEvent->primaryVertex().z());
+    hEventVzVpdVz->Fill(mPicoEvent->primaryVertex().z(),mPicoEvent->vzVpd());
+    
+    if (isTofEvent()) {
+        hEvent->Fill(1);
+        
+        if (fabs(mPicoEvent->primaryVertex().z()) < cuts::vz) {
+            hEvent->Fill(2);
+        
+            if (fabs(mPicoEvent->primaryVertex().z() - mPicoEvent->vzVpd()) < cuts::vzVpdVz) {
+                hEvent->Fill(3);
+                return true;
+            
+            }
+        }
+    }
 }
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodTrack(StPicoTrack const * const trk) const
