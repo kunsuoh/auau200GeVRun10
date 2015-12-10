@@ -94,8 +94,8 @@ Int_t StLowPtNpeAnaMaker::Make()
     
     if (isGoodEvent())
     {
-        cout << "CHECK!!! after isGoodEvent()" << endl;
-
+        //cout << "CHECK!!! after isGoodEvent()" << endl;
+        cout << "check!!" << endl;
         
         float refmult = mPicoEvent->refMult();
         float vZ = mPicoEvent->primaryVertex().z();
@@ -114,11 +114,15 @@ Int_t StLowPtNpeAnaMaker::Make()
         std::vector<unsigned short> idxPicoPartnerEs;
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
+            cout << "check!! track" << endl;
             StPicoTrack const* trk = picoDst->track(iTrack);
             if (!trk) continue;
+            cout << "check!! track" << endl;
             if (isElectron(trk))
             {
+                cout << "check!! track" << endl;
                 fillHistogram(trk);
+                cout << "check!! track" << endl;
                 if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
             }
             
@@ -241,7 +245,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     float pt = trk->gMom().perp();
     float eta = trk->gMom().pseudoRapidity();
     
-    cout << pt << " " << eta << endl;
+    //cout << pt << " " << eta << endl;
 
     float dbeta=0;
     getCalTofTrack(trk, dbeta);
@@ -258,7 +262,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     }
     for (int k=0;k<5;k++) if (TMath::Abs(eta) < k*0.1 + 0.1) {iEta=k;break;}
     
-    cout << iPt << " " << iEta << endl;
+    //cout << iPt << " " << iEta << endl;
     
     histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
     histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
@@ -273,7 +277,6 @@ void StLowPtNpeAnaMaker::loadTofEvent()
     TString temp;
     ifstream list_PicoQa("StRoot/StLowPtNpeAnaMaker/QA_P10ik.txt"); // by beta
     if (!list_PicoQa) {
-        cout << "No QA file... " << endl;
     }
     for(int i=0;i<2388;i++){
         list_PicoQa >> temp;
@@ -282,7 +285,6 @@ void StLowPtNpeAnaMaker::loadTofEvent()
         mQa_west[i]  = temp.Atof();
         list_PicoQa >> temp;
         mQa_east[i]  = temp.Atof();
-        cout << mQa_runID[i] << " " << mQa_west[i] << endl;
     }
 }
 //-----------------------------------------------------------------------------
