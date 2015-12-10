@@ -114,15 +114,15 @@ Int_t StLowPtNpeAnaMaker::Make()
         std::vector<unsigned short> idxPicoPartnerEs;
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
-            cout << "check!! track" << endl;
+            cout << "check!! track" << iTrack <<  endl;
             StPicoTrack const* trk = picoDst->track(iTrack);
             if (!trk) continue;
-            cout << "check!! track" << endl;
+            cout << "check!! track" << iTrack <<  endl;
             if (isElectron(trk))
             {
-                cout << "check!! track" << endl;
+                cout << "check!! track" << iTrack <<  endl;
                 fillHistogram(trk);
-                cout << "check!! track" << endl;
+                cout << "check!! track" << iTrack <<  endl;
                 if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
             }
             
