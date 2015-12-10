@@ -25,6 +25,8 @@ namespace cuts
     float const nHitsRatioMin = 0.52; float const nHitsRatioMax = 1.2;
     float const ptMin = .2;
     float const ptMax = 5.;
+    
+    // eid
     float const nSigmaTaggedElectron = 3.;
     float const nSigmaPartnerElectron = 3.;
     
@@ -33,8 +35,9 @@ namespace cuts
     float const globalDca = 1.;
     float const etaTagged = 0.5;
     float const firstHit = 73.;
-    float const phiMin1 = 0; float const phiMax1 = 0;
-    float const phiMin2 = 0; float const phiMax2 = 0;
+    float const phiMin1 = -1.9;                              // reject supporting structure
+    float const phiMax1 = -1.3; float const phiMin2 = 1.9;
+    float const phiMax2 = 1.3;
 
     float const ylocal = 1.9;
     float const zlocal = 3.2;

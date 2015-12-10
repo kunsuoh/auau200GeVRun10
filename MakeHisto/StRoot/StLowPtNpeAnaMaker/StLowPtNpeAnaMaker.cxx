@@ -190,9 +190,10 @@ bool StLowPtNpeAnaMaker::isElectron(StPicoTrack const * const trk) const
     isGoodTrack(trk) &&
     fabs(trk->gMom().pseudoRapidity()) < cuts::etaTagged &&
     trk->nHitsDedx() >= cuts::nHitsDedx &&
-    trk->dca() < cuts::globalDca ;
-  //  trk->gMom().phi() < cuts::phiMin1 && trk->gMom().phi() > cuts::phiMax1 &&
-  //  trk->gMom().phi() < cuts::phiMin2 && trk->gMom().phi() > cuts::phiMax2 ;
+    trk->dca() < cuts::globalDca &&
+    (trk->gMom().phi() < cuts::phiMin1 ||
+    (trk->gMom().phi() > cuts::phiMax1 && trk->gMom().phi() < cuts::phiMin2) ||
+    trk->gMom().phi() > cuts::phiMax2) ;
 }
 
 //-----------------------------------------------------------------------------
