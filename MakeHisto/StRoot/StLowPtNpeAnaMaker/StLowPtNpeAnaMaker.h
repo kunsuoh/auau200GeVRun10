@@ -76,6 +76,7 @@ private:
     TH1D * hEventRefMultCorr;
     TH1D * hEventWeight;
     
+    
     ClassDef(StLowPtNpeAnaMaker, 0)
 };
 
