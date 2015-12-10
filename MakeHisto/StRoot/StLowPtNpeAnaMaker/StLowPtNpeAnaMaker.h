@@ -69,7 +69,7 @@ private:
 
     TH1D * hEvent;
     TH1D * hEventVz;
-    TH1D * hEventVzVpdVz;
+    TH2D * hEventVzVpdVz;
     TH1D * hEventCentrality;
     TH1D * hEventCentralityCorr;
     TH1D * hEventRefMult;
