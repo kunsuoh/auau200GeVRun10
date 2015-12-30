@@ -155,8 +155,6 @@ Int_t StLowPtNpeAnaMaker::Make()
             }
             
             if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);
-            
-            delete trk;
         } // .. end tracks loop
         
         
