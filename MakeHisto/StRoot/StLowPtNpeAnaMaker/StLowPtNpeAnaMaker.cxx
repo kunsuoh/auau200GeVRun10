@@ -186,6 +186,8 @@ Int_t StLowPtNpeAnaMaker::Make()
     } //.. end of good event fill
     
     
+    delete refmultcorr;
+    
     return kStOK;
 }
 
