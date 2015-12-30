@@ -290,7 +290,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     
     //cout << pt << " " << eta << endl;
 
-    float dbeta=0;
+    float dbeta=-999;
     //cout << "CHECK fillHistogram" << endl;
     getCalTofTrack(trk, dbeta);
     //cout << "CHECK fillHistogram" << endl;
