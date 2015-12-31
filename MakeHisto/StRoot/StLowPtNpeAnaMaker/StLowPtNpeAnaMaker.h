@@ -13,7 +13,7 @@
 
 #include "StMaker.h"
 #include "TH2F.h"
-#include <exception>
+#include <exception.h>
 
 class TTree;
 class TFile;
