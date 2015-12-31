@@ -155,7 +155,8 @@ Int_t StLowPtNpeAnaMaker::Make()
             }
             
             if(mPhE) if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);
-            delete trk;
+            
+            delete const_cast<StPicoTrack*>(trk);
         } // .. end tracks loop
         
         if(mPhE) {
