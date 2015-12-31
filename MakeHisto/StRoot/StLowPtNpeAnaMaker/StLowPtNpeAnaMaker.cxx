@@ -142,8 +142,8 @@ Int_t StLowPtNpeAnaMaker::Make()
         
         UInt_t nTracks = picoDst->numberOfTracks();
         
-        if (mPhE) std::vector<unsigned short> idxPicoTaggedEs;
-        if (mPhE) std::vector<unsigned short> idxPicoPartnerEs;
+        std::vector<unsigned short> idxPicoTaggedEs;
+        std::vector<unsigned short> idxPicoPartnerEs;
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
             StPicoTrack const* trk = picoDst->track(iTrack);
@@ -178,9 +178,9 @@ Int_t StLowPtNpeAnaMaker::Make()
                     
                 } // .. end make electron pairs
             } // .. end of tagged e loop
-            idxPicoTaggedEs.clear();
-            idxPicoPartnerEs.clear();
         }
+        idxPicoTaggedEs.clear();
+        idxPicoPartnerEs.clear();
     } //.. end of good event fill
     
     
