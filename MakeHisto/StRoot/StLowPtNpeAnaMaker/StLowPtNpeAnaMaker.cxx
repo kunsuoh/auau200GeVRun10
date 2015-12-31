@@ -60,7 +60,7 @@ Int_t StLowPtNpeAnaMaker::Init()
     loadTofEvent();
     
     // PhE production
-    mPhE = false;
+    mPhE = cuts::phe ;
     
     return kStOK;
 }
@@ -142,20 +142,16 @@ Int_t StLowPtNpeAnaMaker::Make()
         
         UInt_t nTracks = picoDst->numberOfTracks();
         
-        std::vector<unsigned short> idxPicoTaggedEs;
-        std::vector<unsigned short> idxPicoPartnerEs;
+        if (mPhE) std::vector<unsigned short> idxPicoTaggedEs;
+        if (mPhE) std::vector<unsigned short> idxPicoPartnerEs;
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
-            //cout << "check!! track" << iTrack <<  endl;
             StPicoTrack const* trk = picoDst->track(iTrack);
             if (!trk) continue;
-            //cout << "check!! track" << iTrack <<  endl;
             if (isElectron(trk))
             {
-                //cout << "check!! track" << iTrack <<  endl;
-                fillHistogram(trk);
-                //cout << "check!! track" << iTrack <<  endl;
-                if(mPhE) if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
+                    fillHistogram(trk);
+                    if(mPhE) if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
             }
             
             if(mPhE) if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);

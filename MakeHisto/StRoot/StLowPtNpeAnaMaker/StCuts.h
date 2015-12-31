@@ -51,5 +51,8 @@ namespace cuts
     float const pairMass = 0.5;
     float const pairDca = 3.;
     
+    // production
+    bool const phe = false;
+    
 }
 #endif
