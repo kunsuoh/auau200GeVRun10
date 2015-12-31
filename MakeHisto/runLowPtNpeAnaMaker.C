@@ -7,7 +7,7 @@
  *
  * **************************************************
  */
-
+#include <exception>
 #include <TSystem>
 
 class StMaker;
