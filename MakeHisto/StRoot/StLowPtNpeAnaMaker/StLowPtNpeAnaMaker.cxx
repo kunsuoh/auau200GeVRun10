@@ -1,5 +1,6 @@
 #include <vector>
 #include <cmath>
+#include <exception>
 
 #include "TTree.h"
 #include "TFile.h"

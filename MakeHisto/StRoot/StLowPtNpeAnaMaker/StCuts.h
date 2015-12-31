@@ -12,6 +12,7 @@
 
 #include "Rtypes.h"
 #include <string>
+#include <exception>
 
 namespace cuts
 {
