@@ -41,7 +41,6 @@ void runLowPtNpeAnaMaker(TString npeList="small.list", TString outFileName="test
     
     // -------------- USER variables -------------------------
     
-    // add your cuts here.
     npeChain->Init();
     int nEntries = picoDstMaker->chain()->GetEntries();
     cout << " Total entries = " << nEntries << endl;

@@ -23,7 +23,7 @@ ClassImp(StLowPtNpeAnaMaker)
 //-----------------------------------------------------------------------------
 StLowPtNpeAnaMaker::StLowPtNpeAnaMaker(char const* makerName, StPicoDstMaker* picoMaker, char const* fileBaseName)
 : StMaker(makerName), mPicoDstMaker(picoMaker), mPicoEvent(NULL),
-mOutputFile(NULL), mTofcal(NULL)
+mOutputFile(NULL), mTofcal(NULL),mPhE(false)
 {
     
     TString baseName(fileBaseName);
@@ -58,6 +58,9 @@ Int_t StLowPtNpeAnaMaker::Init()
     }
     
     loadTofEvent();
+    
+    // PhE production
+    mPhE = false;
     
     return kStOK;
 }
@@ -152,38 +155,36 @@ Int_t StLowPtNpeAnaMaker::Make()
                 //cout << "check!! track" << iTrack <<  endl;
                 fillHistogram(trk);
                 //cout << "check!! track" << iTrack <<  endl;
-                if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
+                if(mPhE) if (isTaggedElectron(trk)) idxPicoTaggedEs.push_back(iTrack);
             }
             
-            if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);
+            if(mPhE) if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);
         } // .. end tracks loop
         
-        
-        float const bField = mPicoEvent->bField();
-        /*
-        for (unsigned short ik = 0; ik < idxPicoTaggedEs.size(); ++ik)
-        {
-            
-            StPicoTrack const * electron = picoDst->track(idxPicoTaggedEs[ik]);
-            
-            // make electron pairs
-            for (unsigned short ip = 0; ip < idxPicoPartnerEs.size(); ++ip)
+        if(mPhE) {
+            float const bField = mPicoEvent->bField();
+            for (unsigned short ik = 0; ik < idxPicoTaggedEs.size(); ++ik)
             {
                 
-                if (idxPicoTaggedEs[ik] == idxPicoPartnerEs[ip]) continue;
+                StPicoTrack const * electron = picoDst->track(idxPicoTaggedEs[ik]);
                 
-                StPicoTrack const * partner = picoDst->track(idxPicoPartnerEs[ip]);
-                
-                StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
-                
-                if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
-                
-            } // .. end make electron pairs
-        } // .. end of tagged e loop
-        */
-        idxPicoTaggedEs.clear();
-        idxPicoPartnerEs.clear();
-        
+                // make electron pairs
+                for (unsigned short ip = 0; ip < idxPicoPartnerEs.size(); ++ip)
+                {
+                    
+                    if (idxPicoTaggedEs[ik] == idxPicoPartnerEs[ip]) continue;
+                    
+                    StPicoTrack const * partner = picoDst->track(idxPicoPartnerEs[ip]);
+                    
+                    StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
+                    
+                    if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
+                    
+                } // .. end make electron pairs
+            } // .. end of tagged e loop
+            idxPicoTaggedEs.clear();
+            idxPicoPartnerEs.clear();
+        }
     } //.. end of good event fill
     
     

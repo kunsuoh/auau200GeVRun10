@@ -33,7 +33,7 @@ public:
     virtual Int_t Make();
     virtual void  Clear(Option_t *opt="");
     virtual Int_t Finish();
-    
+
     
 private:
     void  getCalTofTrack(StPicoTrack const*, float&) const;
@@ -50,6 +50,7 @@ private:
     bool  isTofEvent();
     void  loadTofEvent();
     
+    bool mPhE;
     int iCent;
     double weight;
     int nbin;
