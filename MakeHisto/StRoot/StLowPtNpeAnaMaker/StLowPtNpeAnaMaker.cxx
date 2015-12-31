@@ -193,7 +193,7 @@ Int_t StLowPtNpeAnaMaker::Make()
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodEvent()
 {
-    cout << mPicoEvent->runId() << endl;
+    //cout << mPicoEvent->runId() << " " << mPicoEvent->eventId() << endl;
     hEvent->Fill(0);
     hEventVz->Fill(mPicoEvent->primaryVertex().z());
     hEventVzVpdVz->Fill(mPicoEvent->primaryVertex().z(),mPicoEvent->vzVpd());
