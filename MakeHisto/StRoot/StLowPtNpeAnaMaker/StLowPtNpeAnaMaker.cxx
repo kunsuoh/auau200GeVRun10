@@ -211,6 +211,8 @@ bool StLowPtNpeAnaMaker::isGoodEvent()
             }
         }
     }
+    return false;
+
 }
 //-----------------------------------------------------------------------------
 bool StLowPtNpeAnaMaker::isGoodTrack(StPicoTrack const * const trk) const
