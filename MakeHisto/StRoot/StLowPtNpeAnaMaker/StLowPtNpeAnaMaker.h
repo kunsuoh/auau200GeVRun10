@@ -36,17 +36,17 @@ public:
 
     
 private:
-    void  getCalTofTrack(StPicoTrack const*, float&) const;
+    void  getCalTofTrack(StPicoTrack*, float&) const;
     bool  isGoodEvent();
-    bool  isGoodTrack(StPicoTrack const*) const;
-    bool  isElectron(StPicoTrack const*) const;
-    bool  isTaggedElectron(StPicoTrack const*) const;
-    bool  isPartnerElectron(StPicoTrack const*) const;
-    bool  isTofMatching(StPicoTrack const * const trk, float cutY, float cutZ) const;
-    bool  isTofPid(StPicoTrack const *, float) const;
-    bool  isTpcPid(StPicoTrack const *, float) const;
+    bool  isGoodTrack(StPicoTrack*) const;
+    bool  isElectron(StPicoTrack*) const;
+    bool  isTaggedElectron(StPicoTrack*) const;
+    bool  isPartnerElectron(StPicoTrack*) const;
+    bool  isTofMatching(StPicoTrack * const trk, float cutY, float cutZ) const;
+    bool  isTofPid(StPicoTrack *, float) const;
+    bool  isTpcPid(StPicoTrack *, float) const;
     bool  isGoodElectronPair(StElectronPair const &, float) const;
-    void  fillHistogram(StPicoTrack const*) const;
+    void  fillHistogram(StPicoTrack*) const;
     bool  isTofEvent();
     void  loadTofEvent();
     
