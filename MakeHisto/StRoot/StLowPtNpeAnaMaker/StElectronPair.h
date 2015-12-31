@@ -14,7 +14,7 @@
  */
 
 #include "TObject.h"
-#include <exception.h>
+#include <exception>
 
 class StPicoTrack;
 class StPicoEvent;

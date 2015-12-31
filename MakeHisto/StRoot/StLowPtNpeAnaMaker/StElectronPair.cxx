@@ -12,7 +12,7 @@
 #include "TVector3.h"
 
 #include "StElectronPair.h"
-#include <exception.h>
+#include <exception>
 
 ClassImp(StElectronPair)
 

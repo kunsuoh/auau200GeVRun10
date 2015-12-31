@@ -8,7 +8,7 @@
  * **************************************************
  */
 #include <TSystem>
-#include <exception.h>
+#include <exception>
 
 class StMaker;
 class StChain;
