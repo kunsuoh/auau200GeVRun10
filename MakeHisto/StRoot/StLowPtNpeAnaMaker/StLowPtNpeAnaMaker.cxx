@@ -147,7 +147,7 @@ Int_t StLowPtNpeAnaMaker::Make()
         for (unsigned short iTrack = 0; iTrack < nTracks; ++iTrack)
         {
             StPicoTrack const* trk = picoDst->track(iTrack);
-            if (!trk) continue;
+            //if (!trk) continue;
             if (isElectron(trk))
             {
                     fillHistogram(trk);
@@ -156,33 +156,34 @@ Int_t StLowPtNpeAnaMaker::Make()
             
             if(mPhE) if (isPartnerElectron(trk)) idxPicoPartnerEs.push_back(iTrack);
             
-          //  delete const_cast<StPicoTrack*>(trk);
         } // .. end tracks loop
         
-        if(mPhE) {
-            float const bField = mPicoEvent->bField();
-            for (unsigned short ik = 0; ik < idxPicoTaggedEs.size(); ++ik)
+        
+        
+        float const bField = mPicoEvent->bField();
+        for (unsigned short ik = 0; ik < idxPicoTaggedEs.size(); ++ik)
+        {
+            
+            StPicoTrack const * electron = picoDst->track(idxPicoTaggedEs[ik]);
+            
+            // make electron pairs
+            for (unsigned short ip = 0; ip < idxPicoPartnerEs.size(); ++ip)
             {
                 
-                StPicoTrack const * electron = picoDst->track(idxPicoTaggedEs[ik]);
+                if (idxPicoTaggedEs[ik] == idxPicoPartnerEs[ip]) continue;
                 
-                // make electron pairs
-                for (unsigned short ip = 0; ip < idxPicoPartnerEs.size(); ++ip)
-                {
-                    
-                    if (idxPicoTaggedEs[ik] == idxPicoPartnerEs[ip]) continue;
-                    
-                    StPicoTrack const * partner = picoDst->track(idxPicoPartnerEs[ip]);
-                    
-                    StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
-                    
-                    if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
-                    
-                } // .. end make electron pairs
-            } // .. end of tagged e loop
-        }
+                StPicoTrack const * partner = picoDst->track(idxPicoPartnerEs[ip]);
+                
+                StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
+                
+                if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
+                
+            } // .. end make electron pairs
+        } // .. end of tagged e loop
+        
         idxPicoTaggedEs.clear();
         idxPicoPartnerEs.clear();
+        delete refmultcorr;
     } //.. end of good event fill
     
     
