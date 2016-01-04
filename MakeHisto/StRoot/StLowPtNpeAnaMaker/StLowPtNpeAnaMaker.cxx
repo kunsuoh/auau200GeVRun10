@@ -2,7 +2,7 @@
 #include <cmath>
 #include <exception>
 
-#include "THnSparse.h"
+#include "THnSparseF.h"
 #include "TTree.h"
 #include "TFile.h"
 #include "TString.h"
@@ -76,7 +76,7 @@ Int_t StLowPtNpeAnaMaker::Init()
         xmin[i] = fxmin[i];
         xmax[i] = fxmax[i];
     }
-    hs = new THnSparseF("hs", "hs", 6, bins, min, max);
+    hs = new THnSparseF("hs", "hs", fDim, bins, min, max);
     
     loadTofEvent();
     

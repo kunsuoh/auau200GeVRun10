@@ -14,7 +14,7 @@
 #include "StMaker.h"
 #include "TH2F.h"
 #include <exception>
-#include "THnSparse.h"
+#include "THnSparseF.h"
 
 class TTree;
 class TFile;
@@ -72,7 +72,7 @@ private:
 //    TH2F * histoPhEU[7][5][102];
 //    TH2F * histoPhEL[7][5][102];
     
-    THnSparse * hs;
+    THnSparseF * hs;
 
     TH1D * hEvent;
     TH1D * hEventVz;
