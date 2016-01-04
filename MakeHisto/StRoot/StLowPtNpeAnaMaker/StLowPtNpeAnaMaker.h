@@ -73,7 +73,6 @@ private:
 //    TH2F * histoPhEL[7][5][102];
     
     THnSparse * hs;
-    Double_t * fValue;
     
     TH1D * hEvent;
     TH1D * hEventVz;
