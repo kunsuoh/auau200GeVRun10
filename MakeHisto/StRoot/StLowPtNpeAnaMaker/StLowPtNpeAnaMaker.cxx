@@ -344,7 +344,13 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 
     //cout << iCent << " " << iPt << " " << iEta << endl;
     
-    float fValue[6] = {0, iCent+0.5, iEta+0.5, iPt+0.5, dbeta, nSigmaElectron};
+    fValue[0] = 0;
+    fValue[1] = iCent+0.5;
+    fValue[2] = iEta+0.5;
+    fValue[3] = iPt+0.5;
+    fValue[4] = dbeta;
+    fValue[5] = nSigmaElectron;
+    
     hs->Fill(fValue, weight);
     
     //histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
