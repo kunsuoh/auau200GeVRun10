@@ -14,7 +14,7 @@
 #include "StMaker.h"
 #include "TH2F.h"
 #include <exception>
-#include "THnSparseF.h"
+#include "THnSparse.h"
 
 class TTree;
 class TFile;
