@@ -66,6 +66,8 @@ private:
     
     StRefMultCorr* refmultcorr;
     TH2F * histoAll[7][5][102];
+    TH2F * histoPureEU[7][5][102];
+    TH2F * histoPureEL[7][5][102];
     TH2F * histoPhEU[7][5][102];
     TH2F * histoPhEL[7][5][102];
 

@@ -55,6 +55,10 @@ Int_t StLowPtNpeAnaMaker::Init()
     for (int k=0 ; k<102 ; k++)
     {
         histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+        histoPureEU[i][j][k] = new TH2F(Form("histoPureEU%d_eta%d_pt%d",i,j,k), Form("histoPureEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+        histoPureEL[i][j][k] = new TH2F(Form("histoPureEL%d_eta%d_pt%d",i,j,k), Form("histoPureEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+        histoPhEU[i][j][k] = new TH2F(Form("histoPhEU%d_eta%d_pt%d",i,j,k), Form("histoPhEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+        histoPhEL[i][j][k] = new TH2F(Form("histoPhEL%d_eta%d_pt%d",i,j,k), Form("histoPhEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
     }
     
     loadTofEvent();
@@ -83,10 +87,14 @@ Int_t StLowPtNpeAnaMaker::Finish()
     for (int k=0 ; k<102 ; k++)
     {
         histoAll[i][j][k]->Write();
+        histoPureEU[i][j][k]->Write();
+        histoPureEL[i][j][k]->Write();
+        if(mPhE) histoPhEU[i][j][k]->Write();
+        if(mPhE) histoPhEL[i][j][k]->Write();
     }
 
     
-    mOutputFile->Write();
+    \->Write();
     mOutputFile->Close();
     return kStOK;
 }
@@ -177,7 +185,8 @@ Int_t StLowPtNpeAnaMaker::Make()
                 StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
                 
                 if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
-                
+                fillHistogram(electron);
+
             } // .. end make electron pairs
         } // .. end of tagged e loop
         

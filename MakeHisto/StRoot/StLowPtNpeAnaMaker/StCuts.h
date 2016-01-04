@@ -52,7 +52,7 @@ namespace cuts
     float const pairDca = 3.;
     
     // production
-    bool const phe = false;
+    bool const phe = true;
     
 }
 #endif
