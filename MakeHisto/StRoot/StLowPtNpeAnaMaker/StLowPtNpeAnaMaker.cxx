@@ -190,23 +190,19 @@ Int_t StLowPtNpeAnaMaker::Make()
         } // .. end tracks loop
         
         
-        
+        cout << idxPicoTaggedEs.size() << " " << idxPicoPartnerEs.size() << endl;
         float const bField = mPicoEvent->bField();
         for (unsigned short ik = 0; ik < idxPicoTaggedEs.size(); ++ik)
         {
-            
             StPicoTrack const * electron = picoDst->track(idxPicoTaggedEs[ik]);
             
             // make electron pairs
             for (unsigned short ip = 0; ip < idxPicoPartnerEs.size(); ++ip)
             {
-                
                 if (idxPicoTaggedEs[ik] == idxPicoPartnerEs[ip]) continue;
                 
                 StPicoTrack const * partner = picoDst->track(idxPicoPartnerEs[ip]);
-                
                 StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
-                
                 
                 // fill histograms for PhE
                 if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
