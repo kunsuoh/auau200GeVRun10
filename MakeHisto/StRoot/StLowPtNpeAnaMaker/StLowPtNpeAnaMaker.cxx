@@ -55,7 +55,7 @@ Int_t StLowPtNpeAnaMaker::Init()
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
     {
-        cout << i << " " << j << " " << k << endl;
+ //       cout << i << " " << j << " " << k << endl;
  //       histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
  //       histoPureEU[i][j][k] = new TH2F(Form("histoPureEU%d_eta%d_pt%d",i,j,k), Form("histoPureEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
  //       histoPureEL[i][j][k] = new TH2F(Form("histoPureEL%d_eta%d_pt%d",i,j,k), Form("histoPureEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
@@ -100,6 +100,8 @@ Int_t StLowPtNpeAnaMaker::Finish()
     hEventRefMult->Write();
     hEventRefMultCorr->Write();
     hEventWeight->Write();
+    
+    
   /*  for (int i=0 ; i<7 ; i++)
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
@@ -316,7 +318,7 @@ bool StLowPtNpeAnaMaker::isGoodElectronPair(StElectronPair const & epair, float 
 //-----------------------------------------------------------------------------
 void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 {
-    //cout << "CHECK fillHistogram" << endl;
+    cout << "CHECK fillHistogram" << endl;
     float ptbin[] = {0, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.27, 0.28, 0.29, 0.3, 0.31, 0.32, 0.33, 0.34, 0.35, 0.36, 0.37, 0.38, 0.39, 0.4, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.48, 0.49, 0.5, 0.51, 0.52, 0.53, 0.54, 0.55, 0.56, 0.57, 0.58, 0.59, 0.6, 0.62, 0.64, 0.66, 0.68, 0.7, 0.72, 0.74, 0.76, 0.78, 0.8, 0.82, 0.84, 0.86, 0.88, 0.9, 0.92, 0.94, 0.96, 0.98, 1, 1.05, 1.1,  1.15,  1.2,  1.25,  1.3,  1.35,  1.4,  1.45,  1.5,  1.55,  1.6,  1.65,  1.7,  1.75,  1.8,  1.85,  1.9,  1.95, 2,  2.1,  2.2,  2.3,  2.4,  2.5,  2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5};
     
     float pt = trk->gMom().perp();
@@ -356,6 +358,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     //histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
     //histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
     //cout << "CHECK fillHistogram" << endl;
+    cout << "CHECK fillHistogram end" << endl;
 
 }
 //--------------------
