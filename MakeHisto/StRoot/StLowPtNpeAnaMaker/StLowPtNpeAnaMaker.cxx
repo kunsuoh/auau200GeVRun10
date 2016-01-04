@@ -65,7 +65,7 @@ Int_t StLowPtNpeAnaMaker::Init()
     Int_t bins[6] = {5, 7, 6, 102, 800, 289}; // type, cent, eta, pt, dbeta, nsige
     Double_t xmin[6] = {0,  0,  0,  0,      -0.2,   -13};
     Double_t xmax[6] = {5,  7,  6,  102,    0.6,    13};
-    hs = new THnSparse("hs", "hs", 6, bins, min, max);
+    hs = new THnSparseF("hs", "hs", 6, bins, min, max);
     
     loadTofEvent();
     
@@ -332,7 +332,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 
     //cout << iCent << " " << iPt << " " << iEta << endl;
     
-    float fValue = {0, iCent+0.5, iEta+0.5, iPt+0.5, dbeta, nSigmaElectron};
+    float fValue[6] = {0, iCent+0.5, iEta+0.5, iPt+0.5, dbeta, nSigmaElectron};
     hs->Fill(fValue, weight);
     
     //histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
