@@ -62,11 +62,22 @@ Int_t StLowPtNpeAnaMaker::Init()
  //       histoPhEU[i][j][k] = new TH2F(Form("histoPhEU%d_eta%d_pt%d",i,j,k), Form("histoPhEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
  //       histoPhEL[i][j][k] = new TH2F(Form("histoPhEL%d_eta%d_pt%d",i,j,k), Form("histoPhEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
     }
-    int bins[6] = {5, 7, 6, 102, 800, 289}; // type, cent, eta, pt, dbeta, nsige
-    float xmin[6] = {0,  0,  0,  0,      -0.2,   -13};
-    float xmax[6] = {5,  7,  6,  102,    0.6,    13};
+    Int_t fDim = 6;
+    Int_t* bins = new Int_t[fDim];
+    Double_t *xmin = new Double_t[fDim];
+    Double_t *xmax = new Double_t[fDim];
     
-    THnSparse hs("hs", "hs", 6, bins, xmin, xmax);
+    Int_t fbins[6] = {5, 7, 6, 102, 800, 289}; // type, cent, eta, pt, dbeta, nsige
+    Double_t fxmin[6] = {0,  0,  0,  0,      -0.2,   -13};
+    Double_t fxmax[6] = {5,  7,  6,  102,    0.6,    13};
+    
+    for (int i=0; i<fDim; i++) {
+        bins[i] = fbins[i];
+        xmin[i] = fxmin[i];
+        xmax[i] = fxmax[i];
+    }
+    
+    hs = new THnSparseF("hs", "hs", fDim, bins, xmin, xmax);
     
     loadTofEvent();
     
@@ -101,7 +112,7 @@ Int_t StLowPtNpeAnaMaker::Finish()
     }
 
     */
-    hs.Write();
+    hs->Write();
     
     
     mOutputFile->Write();
@@ -334,7 +345,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     //cout << iCent << " " << iPt << " " << iEta << endl;
     
     float fValue[6] = {0, iCent+0.5, iEta+0.5, iPt+0.5, dbeta, nSigmaElectron};
-    hs.Fill(fValue, weight);
+    hs->Fill(fValue, weight);
     
     //histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
     //histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
