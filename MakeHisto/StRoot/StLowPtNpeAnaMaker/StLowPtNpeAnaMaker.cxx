@@ -208,7 +208,7 @@ Int_t StLowPtNpeAnaMaker::Make()
                 StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
                 
                 if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
-                if (electronPair->charge()==0)fillHistogram(electron,1);
+                if (electronPair.charge()==0)fillHistogram(electron,1);
                 else fillHistogram(electron,2);
 
             } // .. end make electron pairs
