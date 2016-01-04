@@ -2,6 +2,7 @@
 #include <cmath>
 #include <exception>
 
+#include "THnSparse.h"
 #include "TTree.h"
 #include "TFile.h"
 #include "TString.h"
@@ -55,12 +56,16 @@ Int_t StLowPtNpeAnaMaker::Init()
     for (int k=0 ; k<102 ; k++)
     {
         cout << i << " " << j << " " << k << endl;
-        histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
-        histoPureEU[i][j][k] = new TH2F(Form("histoPureEU%d_eta%d_pt%d",i,j,k), Form("histoPureEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
-        histoPureEL[i][j][k] = new TH2F(Form("histoPureEL%d_eta%d_pt%d",i,j,k), Form("histoPureEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
-        histoPhEU[i][j][k] = new TH2F(Form("histoPhEU%d_eta%d_pt%d",i,j,k), Form("histoPhEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
-        histoPhEL[i][j][k] = new TH2F(Form("histoPhEL%d_eta%d_pt%d",i,j,k), Form("histoPhEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+ //       histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+ //       histoPureEU[i][j][k] = new TH2F(Form("histoPureEU%d_eta%d_pt%d",i,j,k), Form("histoPureEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+ //       histoPureEL[i][j][k] = new TH2F(Form("histoPureEL%d_eta%d_pt%d",i,j,k), Form("histoPureEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+ //       histoPhEU[i][j][k] = new TH2F(Form("histoPhEU%d_eta%d_pt%d",i,j,k), Form("histoPhEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
+ //       histoPhEL[i][j][k] = new TH2F(Form("histoPhEL%d_eta%d_pt%d",i,j,k), Form("histoPhEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
     }
+    Int_t bins[6] = {5, 7, 6, 102, 800, 289}; // type, cent, eta, pt, dbeta, nsige
+    Double_t xmin[6] = {0,  0,  0,  0,      -0.2,   -13};
+    Double_t xmax[6] = {5,  7,  6,  102,    0.6,    13};
+    hs = new THnSparse("hs", "hs", 6, bins, min, max);
     
     loadTofEvent();
     
@@ -83,7 +88,7 @@ Int_t StLowPtNpeAnaMaker::Finish()
     hEventRefMult->Write();
     hEventRefMultCorr->Write();
     hEventWeight->Write();
-    for (int i=0 ; i<7 ; i++)
+  /*  for (int i=0 ; i<7 ; i++)
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
     {
@@ -94,6 +99,9 @@ Int_t StLowPtNpeAnaMaker::Finish()
         if(mPhE) histoPhEL[i][j][k]->Write();
     }
 
+    */
+    hs->Write();
+    
     
     mOutputFile->Write();
     mOutputFile->Close();
@@ -324,8 +332,11 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
 
     //cout << iCent << " " << iPt << " " << iEta << endl;
     
-    histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
-    histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
+    float fValue = {0, iCent+0.5, iEta+0.5, iPt+0.5, dbeta, nSigmaElectron};
+    hs->Fill(fValue, weight);
+    
+    //histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
+    //histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
     //cout << "CHECK fillHistogram" << endl;
 
 }

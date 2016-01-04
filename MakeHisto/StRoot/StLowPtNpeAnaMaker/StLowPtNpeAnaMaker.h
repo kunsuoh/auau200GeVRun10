@@ -14,6 +14,7 @@
 #include "StMaker.h"
 #include "TH2F.h"
 #include <exception>
+#include "THnSparse.h"
 
 class TTree;
 class TFile;
@@ -65,12 +66,12 @@ private:
     TTree* mTree;
     
     StRefMultCorr* refmultcorr;
-    TH2F * histoAll[7][5][102];
-    TH2F * histoPureEU[7][5][102];
-    TH2F * histoPureEL[7][5][102];
-    TH2F * histoPhEU[7][5][102];
-    TH2F * histoPhEL[7][5][102];
-    
+//    TH2F * histoAll[7][5][102];
+//    TH2F * histoPureEU[7][5][102];
+//    TH2F * histoPureEL[7][5][102];
+//    TH2F * histoPhEU[7][5][102];
+//    TH2F * histoPhEL[7][5][102];
+    THnSparse * hs;
 
     TH1D * hEvent;
     TH1D * hEventVz;
