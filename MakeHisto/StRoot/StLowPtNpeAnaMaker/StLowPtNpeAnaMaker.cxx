@@ -54,6 +54,7 @@ Int_t StLowPtNpeAnaMaker::Init()
     for (int j=0 ; j<5 ; j++)
     for (int k=0 ; k<102 ; k++)
     {
+        cout << i << " " << j << " " << k << endl;
         histoAll[i][j][k] = new TH2F(Form("histo%d_eta%d_pt%d",i,j,k), Form("histo%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
         histoPureEU[i][j][k] = new TH2F(Form("histoPureEU%d_eta%d_pt%d",i,j,k), Form("histoPureEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
         histoPureEL[i][j][k] = new TH2F(Form("histoPureEL%d_eta%d_pt%d",i,j,k), Form("histoPureEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
