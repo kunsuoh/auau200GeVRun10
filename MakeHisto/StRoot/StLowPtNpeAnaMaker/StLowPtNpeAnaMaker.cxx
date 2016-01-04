@@ -66,7 +66,7 @@ Int_t StLowPtNpeAnaMaker::Init()
     float xmin[6] = {0,  0,  0,  0,      -0.2,   -13};
     float xmax[6] = {5,  7,  6,  102,    0.6,    13};
     
-    THnSparse hs("hs", "hs", 6, bins, min, max);
+    THnSparse hs("hs", "hs", 6, bins, xmin, xmax);
     
     loadTofEvent();
     
