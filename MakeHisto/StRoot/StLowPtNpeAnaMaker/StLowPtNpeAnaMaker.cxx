@@ -62,9 +62,20 @@ Int_t StLowPtNpeAnaMaker::Init()
  //       histoPhEU[i][j][k] = new TH2F(Form("histoPhEU%d_eta%d_pt%d",i,j,k), Form("histoPhEU%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
  //       histoPhEL[i][j][k] = new TH2F(Form("histoPhEL%d_eta%d_pt%d",i,j,k), Form("histoPhEL%d_eta%d_pt%d",i,j,k) ,800, -0.2, 0.6, 289, -13, 13);
     }
-    Int_t bins[6] = {5, 7, 6, 102, 800, 289}; // type, cent, eta, pt, dbeta, nsige
-    Double_t xmin[6] = {0,  0,  0,  0,      -0.2,   -13};
-    Double_t xmax[6] = {5,  7,  6,  102,    0.6,    13};
+    Int_t fDim = 6;
+    Int_t* bins = new Int_t[fDim];
+    Double_t *xmin = new Double_t[fDim];
+    Double_t *xmax = new Double_t[fDim];
+    
+    Int_t fbins[6] = {5, 7, 6, 102, 800, 289}; // type, cent, eta, pt, dbeta, nsige
+    Double_t fxmin[6] = {0,  0,  0,  0,      -0.2,   -13};
+    Double_t fxmax[6] = {5,  7,  6,  102,    0.6,    13};
+    
+    for (int i=0; i<fDim; i++) {
+        bins[i] = fbins[i];
+        xmin[i] = fxmin[i];
+        xmax[i] = fxmax[i];
+    }
     hs = new THnSparseF("hs", "hs", 6, bins, min, max);
     
     loadTofEvent();
