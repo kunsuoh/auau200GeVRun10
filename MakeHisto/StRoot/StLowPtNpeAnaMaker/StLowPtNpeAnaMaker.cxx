@@ -200,7 +200,6 @@ Int_t StLowPtNpeAnaMaker::Make()
             for (unsigned short ip = 0; ip < idxPicoPartnerEs.size(); ++ip)
             {
                 if (idxPicoTaggedEs[ik] == idxPicoPartnerEs[ip]) continue;
-                cout << " " << ik << " " << ip << endl;
                 StPicoTrack const * partner = picoDst->track(idxPicoPartnerEs[ip]);
                 StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
                 
