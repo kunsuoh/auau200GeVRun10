@@ -94,7 +94,7 @@ Int_t StLowPtNpeAnaMaker::Finish()
     }
 
     
-    \->Write();
+    mOutputFile->Write();
     mOutputFile->Close();
     return kStOK;
 }
