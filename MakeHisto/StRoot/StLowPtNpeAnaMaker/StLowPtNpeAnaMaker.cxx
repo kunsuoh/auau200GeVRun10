@@ -342,7 +342,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
         }
     }
     for (int k=0;k<5;k++) if (TMath::Abs(eta) < k*0.1 + 0.1) {iEta=k;break;}
-    //cout << "CHECK fillHistogram" << endl;
+    cout << "CHECK fillHistogram" << endl;
 
     //cout << iCent << " " << iPt << " " << iEta << endl;
     
@@ -353,7 +353,7 @@ void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk) const
     fValue[4] = dbeta;
     fValue[5] = nSigmaElectron;
     
-    hs->Fill(fValue);
+    hs->Fill(fValue, weight);
     
     //histoAll[iCent][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
     //histoAll[0][iEta][iPt]->Fill(dbeta,nSigmaElectron,weight);
