@@ -60,7 +60,7 @@ inline float StElectronPair::pairDca() const                    { return mPairDc
 inline float StElectronPair::positionX() const                  { return mPositionX;}
 inline float StElectronPair::positionY() const                  { return mPositionY;}
 inline float StElectronPair::positionZ() const                  { return mPositionZ;}
-inline float StElectronPair::charge() const                     { return mCharge;}
+inline int StElectronPair::charge() const                     { return mCharge;}
 
 #endif
 #endif
