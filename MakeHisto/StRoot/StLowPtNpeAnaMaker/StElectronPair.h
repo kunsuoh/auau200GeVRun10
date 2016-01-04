@@ -35,7 +35,7 @@ public:
     float positionX() const;                // conversion position X
     float positionY() const;                // conversion position Y
     float positionZ() const;                // conversion position Z
-
+    int charge() const;
     
     
 private:
@@ -50,7 +50,7 @@ private:
     float mPositionX;               // conversion position x (4 Bytes)
     float mPositionY;               // conversion position y (4 Bytes)
     float mPositionZ;               // conversion position z (4 Bytes)
-    
+    int mCharge;
     ClassDef(StElectronPair,2)
 };
 inline unsigned short   StElectronPair::electronIdx() const     { return mElectronIdx;                        }
@@ -60,6 +60,7 @@ inline float StElectronPair::pairDca() const                    { return mPairDc
 inline float StElectronPair::positionX() const                  { return mPositionX;}
 inline float StElectronPair::positionY() const                  { return mPositionY;}
 inline float StElectronPair::positionZ() const                  { return mPositionZ;}
+inline float StElectronPair::charge() const                     { return mCharge;}
 
 #endif
 #endif

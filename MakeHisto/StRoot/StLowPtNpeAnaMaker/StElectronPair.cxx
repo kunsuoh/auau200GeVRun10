@@ -84,5 +84,7 @@ mPositionZ(std::numeric_limits<float>::quiet_NaN())
     mPositionY = Position.y();
 
     mPositionZ = Position.z();
+    
+    mCharge = electron->charge() + partner->charge();
 }
 #endif // __ROOT__

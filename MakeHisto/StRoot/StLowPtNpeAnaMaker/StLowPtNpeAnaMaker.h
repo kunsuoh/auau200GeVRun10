@@ -47,7 +47,7 @@ private:
     bool  isTofPid(StPicoTrack const *, float) const;
     bool  isTpcPid(StPicoTrack const *, float) const;
     bool  isGoodElectronPair(StElectronPair const &, float) const;
-    void  fillHistogram(StPicoTrack const*) const;
+    void  fillHistogram(StPicoTrack const*, int) const;
     bool  isTofEvent();
     void  loadTofEvent();
     
