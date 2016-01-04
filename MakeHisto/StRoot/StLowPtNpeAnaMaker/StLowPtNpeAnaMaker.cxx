@@ -207,9 +207,16 @@ Int_t StLowPtNpeAnaMaker::Make()
                 
                 StElectronPair electronPair(electron, partner, idxPicoTaggedEs[ik], idxPicoPartnerEs[ip], bField);
                 
+                
+                // fill histograms for PhE
                 if (!isGoodElectronPair(electronPair, electron->gMom().perp())) continue;
-                if (electronPair.charge()==0)fillHistogram(electron,1);
+                if (electronPair.charge()==0) fillHistogram(electron,1);
                 else fillHistogram(electron,2);
+
+                // fill histograms for PureE
+                if (!isGoodPureElectronPair(electronPair, electron->gMom().perp())) continue;
+                if (electronPair.charge()==0) fillHistogram(electron,3);
+                else fillHistogram(electron,4);
 
             } // .. end make electron pairs
         } // .. end of tagged e loop
@@ -315,6 +322,13 @@ bool StLowPtNpeAnaMaker::isGoodElectronPair(StElectronPair const & epair, float 
     return
     epair.pairMass() < cuts::pairMass &&
     epair.pairDca() < cuts::pairDca;
+}
+//-----------------------------------------------------------------------------
+bool StLowPtNpeAnaMaker::isGoodPureElectronPair(StElectronPair const & epair, float pt) const
+{
+    return
+    epair.pairMass() < cuts::pairMassPure &&
+    epair.pairDca() < cuts::pairDcaPure;
 }
 //-----------------------------------------------------------------------------
 void StLowPtNpeAnaMaker::fillHistogram(StPicoTrack const * const trk, int type) const

@@ -50,7 +50,11 @@ namespace cuts
     // electron pair cuts
     float const pairMass = 0.5;
     float const pairDca = 3.;
-    
+
+    // electron pair cuts pure
+    float const pairMassPure = 0.01;
+    float const pairDcaPure = 1.;
+
     // production
     bool const phe = true;
     
